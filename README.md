@@ -1,3 +1,5 @@
+<br />
+
 <p align="center">
   <a href="#" target="_blank" rel="noopener noreferrer">
     <img width="160" src="./logo.png" alt="Vue logo">
@@ -9,6 +11,8 @@
   <img src="https://img.shields.io/github/languages/code-size/RafaelRCamargo/from-reddit-to-shorts?branch=master&label=Code%20Size&logo=GitHub&logoColor=fefefe&labelColor=26262626&style=flat" />
   <img src="https://img.shields.io/github/repo-size/RafaelRCamargo/from-reddit-to-shorts?branch=master&label=Repo%20Size&logo=GitHub&logoColor=fefefe&labelColor=26262626&style=flat" />
 </p>
+
+<br />
 
 # **_FRTS_** - From Reddit to Shorts
 
@@ -24,7 +28,7 @@ A simple script to scrape **reddit** content and turn it into **youtube shorts**
   We will be using [pip](https://pip.pypa.io/en/stable/) to install the dependencies.
 
 ```bash
-pip install -r requirements.txt
+> pip install -r requirements.txt
 ```
 
 ### Usage
@@ -32,7 +36,7 @@ pip install -r requirements.txt
 - To start using the script, just run the following command:
 
 ```bash
-python index.py
+> python index.py
 ```
 
 - Then the script will ask you for the subreddit you want to scrape, with that you the script will start scraping the content, and downloading the videos.
