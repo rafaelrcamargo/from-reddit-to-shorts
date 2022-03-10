@@ -1,6 +1,8 @@
+<br />
+
 <p align="center">
   <a href="#" target="_blank" rel="noopener noreferrer">
-    <img width="100" src="./logo.png" alt="Vue logo">
+    <img width="160" src="./logo.png" alt="Vue logo">
   </a>
 </p>
 
@@ -9,6 +11,8 @@
   <img src="https://img.shields.io/github/languages/code-size/RafaelRCamargo/from-reddit-to-shorts?branch=master&label=Code%20Size&logo=GitHub&logoColor=fefefe&labelColor=26262626&style=flat" />
   <img src="https://img.shields.io/github/repo-size/RafaelRCamargo/from-reddit-to-shorts?branch=master&label=Repo%20Size&logo=GitHub&logoColor=fefefe&labelColor=26262626&style=flat" />
 </p>
+
+<br />
 
 # **_FRTS_** - From Reddit to Shorts
 
