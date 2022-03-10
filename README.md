@@ -1,5 +1,3 @@
-<br />
-
 <p align="center">
   <a href="#" target="_blank" rel="noopener noreferrer">
     <img width="160" src="./logo.png" alt="Vue logo">
