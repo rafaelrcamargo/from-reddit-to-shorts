@@ -12,8 +12,6 @@
   <img src="https://img.shields.io/github/repo-size/RafaelRCamargo/from-reddit-to-shorts?branch=master&label=Repo%20Size&logo=GitHub&logoColor=fefefe&labelColor=26262626&style=flat" />
 </p>
 
-<br />
-
 # **_FRTS_** - From Reddit to Shorts
 
 A simple script to scrape **reddit** content and turn it into **youtube shorts** content.
