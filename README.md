@@ -5,11 +5,34 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/mashape/apistatus?branch=master&label=License&logo=GitHub&logoColor=ffffff&labelColor=282828&color=informational&style=flat" />
-  <img src="https://img.shields.io/github/languages/code-size/RafaelRCamargo/from-reddit-to-shorts?branch=master&label=Code%20Size&logo=GitHub&logoColor=ffffff&labelColor=282828&style=flat" />
-  <img src="https://img.shields.io/github/repo-size/RafaelRCamargo/from-reddit-to-shorts?branch=master&label=Repo%20Size&logo=GitHub&logoColor=ffffff&labelColor=282828&style=flat" />
+  <img src="https://img.shields.io/github/license/mashape/apistatus?branch=master&label=License&logo=GitHub&logoColor=fefefe&labelColor=26262626&color=informational&style=flat" />
+  <img src="https://img.shields.io/github/languages/code-size/RafaelRCamargo/from-reddit-to-shorts?branch=master&label=Code%20Size&logo=GitHub&logoColor=fefefe&labelColor=26262626&style=flat" />
+  <img src="https://img.shields.io/github/repo-size/RafaelRCamargo/from-reddit-to-shorts?branch=master&label=Repo%20Size&logo=GitHub&logoColor=fefefe&labelColor=26262626&style=flat" />
 </p>
 
 # FRTS - From Reddit to Shorts
 
 A simple script to scrape reddit content and turn it into youtube shorts content.
+
+#### How It Works
+
+A simple script to scrape reddit content and turn it into youtube shorts content.
+
+#### Installation
+
+The installation isn't too complicated, just follow the instructions below.
+We will be using [pip](https://pip.pypa.io/en/stable/) to install the dependencies.
+
+```bash
+pip install -r requirements.txt
+```
+
+#### Usage
+
+To start using the script, just run the following command:
+
+```bash
+python index.py
+```
+
+Then the script will ask you for the subreddit you want to scrape, with that you the script will start scraping the content, and downloading the videos.
