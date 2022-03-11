@@ -128,5 +128,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-videos/*
-build/*
+# Temp Files
+assets/videos
+assets/build

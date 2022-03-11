@@ -2,8 +2,12 @@
 # ? Reddit Api + Downloader
 
 # * Imports
+# Sys os
+import os
 # Sys Path
 from pathlib import Path
+# Date
+from datetime import datetime
 # Reddit Downloader
 from redvid import Downloader
 
@@ -11,12 +15,20 @@ from redvid import Downloader
 from rich import print
 
 
-def reddit_downloader(post):
+def reddit_downloader(post, duration):
+    path = str(Path(__file__).cwd()) + "\\assets\\videos\\" + \
+        post.split("/")[2] + "\\" + datetime.today().strftime('%d-%m-%Y')
+
+    isExist = os.path.exists(path)
+    if not isExist:
+        os.makedirs(path)
+        print(">> [italic blue]The new directory is created![/italic blue]\n")
+
     # * Basics
     # Redvid setup
     reddit = Downloader()
     # Video path
-    reddit.path = str(Path(__file__).cwd()) + "\\videos"
+    reddit.path = path
     # Video url
     reddit.url = 'https://www.reddit.com' + post + '_/'
 
@@ -30,17 +42,40 @@ def reddit_downloader(post):
     # Video overwrite method
     reddit.overwrite = True
 
-    # * Get Videos Stats
-    reddit.check()
+    try:
+        # * Get Videos Stats
+        reddit.check()
 
-    # * Video Stats
-    print("\n>> [bold blue]Stats:[/bold blue]")
-    print("- Duration: [blue]" + str(reddit.duration) + "[/blue] seconds")
-    print("- Size: [blue]" + str(reddit.size) + "[/blue] bytes\n")
+        duration += int(reddit.duration)
 
-    # * Downloading
-    if reddit.duration < 90 and reddit.duration > 8 and reddit.size <= 24 * (1 << 20):
-        reddit.download()
-        print('\n>> [green]Video downloaded![/green]\n')
-    else:
-        print('\n>> [red]Video too long, not that good for shorts![/red] :(\n')
+        if duration <= 90:
+            # * General Stats
+            print("\n>> [bold yellow]General Stats:[/bold yellow]")
+            print("- Duration: [bold blue]" +
+                  str(duration) + "[/bold blue] seconds")
+
+            # * Video Stats
+            print("\n>> [bold blue]Video Stats:[/bold blue]")
+            print("- Duration: [blue]" +
+                  str(reddit.duration) + "[/blue] seconds")
+            print("- Size: [blue]" + str(reddit.size) + "[/blue] bytes\n")
+
+            # * Downloading
+            if reddit.duration < 90 and reddit.duration > 2 and reddit.size <= 24 * (1 << 20):
+                reddit.download()
+                print('\n>> [green]Video downloaded![/green]\n')
+            else:
+                print(
+                    '>> [red]Not that good for shorts![/red] [red bold]:([/red bold]\n')
+
+            return True
+        else:
+            # * General Stats
+            print("\n>> [bold yellow]General Stats:[/bold yellow]")
+            print("- Duration: [bold blue]" +
+                  str(duration) + "[/bold blue] seconds\n")
+            print('>> [green]We already have enough videos![/green]')
+            print('>> [bold yellow]Let\'s build it?[/bold yellow]\n')
+            return False
+    except:
+        print('\n>> [red]Video not found![/red]\n')

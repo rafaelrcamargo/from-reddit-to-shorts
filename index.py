@@ -2,39 +2,53 @@
 # ? Reddit Api + Downloader
 
 # * Imports
-# Requests
-import requests
-# Reddit downloader
-from functions.RedditDownloader import reddit_downloader
-
+# Delay
+from time import sleep
 # Cool Terminal Colors
 from rich import print
+# Cool Prompt
+from rich.prompt import Prompt
+
+# Api request
+from functions.ApiRequest import api_request
+# Reddit scraper
+from functions.RedditScraper import reddit_scraper
 
 print("\n--- [yellow]FR[/yellow][bold red]TS[/bold red] - [bold]From Reddit to Shorts[/bold] ---")
 print("\nA simple script to scrape reddit content,")
 print("and turn it into shorts content.\n")
-subreddit = input("Choose a subreddit: ")
+subreddit = Prompt.ask(
+    ">> [blue]Choose a subreddit?[/blue]", default="AbruptChaos")
 
-# Making a get request
-r = requests.get('https://www.reddit.com/r/Unexpected/hot/.json')
-
-print("\n>>", r.status_code, "\n")
-
-duration = 0
-
-if r.status_code == 200:
-    posts = r.json()['data']['children']
-    for post in posts:
-        if post['data']['secure_media'] is not None:
-            duration += int(post['data']['secure_media']
-                            ['reddit_video']['duration'])
-            print(">> [bold]Total Duration:[/bold]", duration, "seconds\n")
-
-            url = post['data']['permalink']
-            reddit_downloader(url)
-            print("--- [yellow]FR[/yellow][bold red]TS[/bold red] --- [yellow]FR[/yellow][bold red]TS[/bold red] --- [yellow]FR[/yellow][bold red]TS[/bold red] ---\n")
+attempts = 10
 
 
+def main():
+    # Making a get request
+    r = api_request(subreddit)
+
+    if r.status_code == 200:
+        reddit_scraper(r)
+        return True
+    else:
+        print('>> [bold red]Error![/bold red]')
+        return False
+
+
+while attempts >= 0:
+    if main():
+        print(">> [bold green]See ya later![/bold green]\n")
+        break
+    else:
+        print('>> Trying again. (' +
+              str(attempts) + ' attempts left)\n')
+
+        timeout = 3
+        while timeout > 0:
+            print('>> [italic]Trying again in[/italic] ' +
+                  str(timeout) + '.')
+            sleep(1)
+            timeout -= 1
+        attempts -= 1
 else:
-    print('>> [bold red]Api Error![/bold red]')
-    print('>> [bold]Try Again Later.[/bold]\n')
+    print('>> [bold red]Enough trying, we have a problem![/bold red]')
