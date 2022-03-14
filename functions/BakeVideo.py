@@ -83,8 +83,10 @@ def bake_video(data_path, subreddit):
         background = background.resize(size, Image.ANTIALIAS)
 
         background.paste(img, (0, 0), img)
+
+        background = background.convert('RGB')
         background.save(str(Path(__file__).cwd()) +
-                        "\\assets\\build\\" + subreddit + "_" + datetime.today().strftime('%d_%m_%Y') + ".jpg", "PNJPGG")
+                        "\\assets\\build\\" + subreddit + "_" + datetime.today().strftime('%d_%m_%Y') + ".jpg", "JPEG")
 
         os.remove(str(build_path) + "\\frame.png")
 
