@@ -31,9 +31,11 @@ def reddit_scraper(r):
         except AttributeError:
             print("Error!\n")
 
-    isBuild = Prompt.ask(">> [blue]Do you want to build the video?", choices=[
+    # Optional baking prompt
+    """ isBuild = Prompt.ask(">> [blue]Do you want to build the video?", choices=[
                          "Yes", "No"], default="Yes")
-    if isBuild == "Yes":
-        print("\n>> [bold blue]Building the video...[/bold blue]")
-        bake_video(str(Path(__file__).cwd()) + "\\assets\\videos\\" +
-                   post['data']['subreddit'] + "\\" + datetime.today().strftime('%d-%m-%Y'), post['data']['subreddit'])
+    if isBuild == "Yes": """
+
+    print(">> [bold blue]Building the video...[/bold blue]")
+    bake_video(str(Path(__file__).cwd()) + "\\assets\\videos\\" +
+               post['data']['subreddit'] + "\\" + datetime.today().strftime('%d_%m_%Y'), post['data']['subreddit'])

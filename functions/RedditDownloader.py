@@ -21,10 +21,11 @@ def reddit_downloader(post):
     global duration
 
     path = str(Path(__file__).cwd()) + "\\assets\\videos\\" + \
-        post.split("/")[2] + "\\" + datetime.today().strftime('%d-%m-%Y')
+        post.split("/")[2] + "\\" + datetime.today().strftime('%d_%m_%Y')
 
     isExist = os.path.exists(path)
     if not isExist:
+        duration = 0
         os.makedirs(path)
         print(">> [italic blue]The new directory is created![/italic blue]\n")
 
@@ -36,13 +37,11 @@ def reddit_downloader(post):
     # Video url
     reddit.url = 'https://www.reddit.com' + post + '_/'
 
-    # * Defs
-    # Max size of the file in MB
-    reddit.max_s = 24 * (1 << 20)
-
     # * Props
     # Auto max video quality based on the file size
     reddit.auto_max = True
+    reddit.max = '1080p'
+
     # Video overwrite method
     reddit.overwrite = True
 
@@ -52,7 +51,7 @@ def reddit_downloader(post):
 
         duration += int(reddit.duration)
 
-        if duration <= 90:
+        if duration <= 40:
             # * General Stats
             print("\n>> [bold yellow]General Stats:[/bold yellow]")
             print("- Duration: [bold blue]" +
@@ -65,7 +64,7 @@ def reddit_downloader(post):
             print("- Size: [blue]" + str(reddit.size) + "[/blue] bytes\n")
 
             # * Downloading
-            if reddit.duration < 90 and reddit.duration > 2 and reddit.size <= 24 * (1 << 20):
+            if reddit.duration < 20 and reddit.duration > 2 and reddit.size <= 24 * (1 << 20):
                 reddit.download()
                 print('\n>> [green]Video downloaded![/green]\n')
             else:
