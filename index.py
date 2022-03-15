@@ -14,6 +14,7 @@ from rich.prompt import Prompt
 from functions.ApiRequest import api_request
 # Reddit scraper
 from functions.RedditScraper import reddit_scraper
+from functions.uploads.instagram.InstagramUpload import instagram_upload
 
 print("\n--- [yellow]FR[/yellow][bold red]TS[/bold red] - [bold]From Reddit to Shorts[/bold] ---")
 print("\nA simple script to scrape reddit content,")
@@ -82,6 +83,7 @@ for subreddit in subreddits['list']:
             attempts -= 1
     else:
         print('\n>> [bold red]Enough trying, we have a problem![/bold red]\n')
-
-# Closing file
-f.close()
+else:
+    # Closing file
+    f.close()
+    instagram_upload()
