@@ -131,3 +131,9 @@ dmypy.json
 # Temp Files
 assets/videos
 assets/build
+
+# Secrets
+client_secret.json
+
+# Oauth2
+*.pickle
