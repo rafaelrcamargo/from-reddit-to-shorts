@@ -15,6 +15,7 @@ from functions.ApiRequest import api_request
 # Reddit scraper
 from functions.RedditScraper import reddit_scraper
 from functions.uploads.instagram.InstagramUpload import instagram_upload
+from functions.uploads.youtube.YouTubeUpload import youtube_upload
 
 print("\n--- [yellow]FR[/yellow][bold red]TS[/bold red] - [bold]From Reddit to Shorts[/bold] ---")
 print("\nA simple script to scrape reddit content,")
@@ -86,4 +87,5 @@ for subreddit in subreddits['list']:
 else:
     # Closing file
     f.close()
-    instagram_upload()
+    # instagram_upload()
+    youtube_upload()
