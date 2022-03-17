@@ -3,10 +3,11 @@
 
 # * Imports
 # Moviepy Video Editor
-from random import randint
 from moviepy.editor import *
 from moviepy.editor import VideoFileClip, AudioFileClip, concatenate_videoclips
 
+# Random number
+from random import randint
 # Moviepy VFX
 import moviepy.video.fx.all as vfx
 
@@ -18,6 +19,8 @@ from os import walk
 from pathlib import Path
 # Date
 from datetime import datetime
+
+# Image
 from PIL import Image
 
 # Cool Terminal Colors
