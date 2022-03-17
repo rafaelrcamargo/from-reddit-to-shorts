@@ -50,7 +50,7 @@ def instagram_upload():
                 " (" + subreddit + ") - trending goes brrr #reels\n\n\n#Entertainment #fun #funny   #comedy #meme #trending #memes #nonsense #reddit #viral #reel",
                 thumbnail=build_path + "\\" + name + ".jpg",
                 extra_data={
-                    "custom_accessibility_caption": "fun funny comedy meme trending memes Entertainment     nonsense reddit viral reel reels",
+                    "custom_accessibility_caption": "reels Entertainment fun funny comedy meme trending memes nonsense reddit viral reel",
                     "like_and_view_counts_disabled": 1,
                     "disable_comments": 1,
                 }

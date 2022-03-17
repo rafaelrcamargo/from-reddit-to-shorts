@@ -86,4 +86,4 @@ for subreddit in subreddits['list']:
 else:
     # Closing file
     f.close()
-    instagram_upload()
+    # instagram_upload()
