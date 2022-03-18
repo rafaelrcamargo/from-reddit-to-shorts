@@ -5,6 +5,9 @@ import re
 from time import sleep
 from googleapiclient.http import MediaFileUpload
 
+# Cool Terminal Colors
+from rich import print
+
 from functions.uploads.youtube.Google import Create_Service
 
 CLIENT_SECRET_FILE = str(Path(__file__).cwd()) + \
@@ -59,17 +62,16 @@ def youtube_upload():
                 media_body=mediaFile
             ).execute()
 
-            service.thumbnails().set(
-                videoId=response_upload.get('id'),
-                media_body=MediaFileUpload(build_path + "\\" + name + ".jpg")
-            ).execute()
+            print("\n>> ", response_upload)
 
             print("\n>> [blue]Uploaded![/blue]")
+
             os.remove(build_path + "\\" + name + ".mp4")
             os.remove(build_path + "\\" + name + ".jpg")
+
             print(
                 "\n>> [green]Video + Thumb removed, ready for another![/green]")
         else:
-            sleep(1800)
+            sleep(600)
     else:
         print("\n>> [italic green]All upload done![/italic green] 🥳")

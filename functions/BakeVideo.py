@@ -98,5 +98,9 @@ def bake_video(data_path, subreddit):
             str(build_path) + "\\" + subreddit + "_" + datetime.today().strftime('%d_%m_%Y') + ".mp4", fps=30)
 
         print("\n>> [italic blue]New video ready![/italic blue] 🥳")
+        for clip in clips:
+            clip.close()
+        del clips
+        del final_clip
     else:
         print(">> [bold red]You need to add more than one video![/bold red]")
