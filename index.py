@@ -3,7 +3,10 @@
 
 # * Imports
 # Delay
+from datetime import datetime
 import json
+import os
+from pathlib import Path
 from time import sleep
 # Cool Terminal Colors
 from rich import print
@@ -22,7 +25,7 @@ print("\nA simple script to scrape reddit content,")
 print("and turn it into shorts content.\n")
 
 
-def main():
+def main(subreddit):
     # Making a get request
     r = api_request(subreddit)
 
@@ -35,40 +38,14 @@ def main():
 
 
 # ? Choose subreddit prompt
-""" subreddit = Prompt.ask(
-    ">> [blue]Choose a subreddit?[/blue]", default="AbruptChaos")
+def subreddit_promt():
+    subreddit = Prompt.ask(
+        ">> [blue]Choose a subreddit?[/blue]", default="AbruptChaos")
 
-attempts = 10
-
-while attempts >= 0:
-    if main():
-        print(">> [bold green]See ya later![/bold green]\n")
-        break
-    else:
-        print('>> Trying again. (' +
-              str(attempts) + ' attempts left)\n')
-
-        timeout = 3
-        while timeout > 0:
-            print('>> [italic]Trying again in[/italic] ' +
-                  str(timeout) + '.')
-            sleep(1)
-            timeout -= 1
-        attempts -= 1
-else:
-    print('>> [bold red]Enough trying, we have a problem![/bold red]')
-"""
-
-# ? Subreddits list scrapping
-# Opening JSON file
-f = open('subreddits.json')
-subreddits = json.load(f)
-
-for subreddit in subreddits['list']:
-    print('>> [blue]Scraping [bold]' + subreddit + '[/bold]...[/blue]')
     attempts = 10
+
     while attempts >= 0:
-        if main():
+        if main(subreddit):
             print(">> [bold green]See ya later![/bold green]\n")
             break
         else:
@@ -83,9 +60,46 @@ for subreddit in subreddits['list']:
                 timeout -= 1
             attempts -= 1
     else:
-        print('\n>> [bold red]Enough trying, we have a problem![/bold red]\n')
-else:
-    # Closing file
-    f.close()
-    # instagram_upload()
-    youtube_upload()
+        print('>> [bold red]Enough trying, we have a problem![/bold red]')
+
+
+# ? Subreddits list scrapping
+def subreddits_list():
+    # Opening JSON file
+    f = open('subreddits.json')
+    subreddits = json.load(f)
+
+    for subreddit in subreddits['list']:
+        print('>> [blue]Scraping [bold]' + subreddit + '[/bold]...[/blue]')
+        attempts = 10
+        while attempts >= 0:
+            if main(subreddit):
+                print(">> [bold green]See ya later![/bold green]\n")
+                break
+            else:
+                print('>> Trying again. (' +
+                      str(attempts) + ' attempts left)\n')
+
+                timeout = 3
+                while timeout > 0:
+                    print('>> [italic]Trying again in[/italic] ' +
+                          str(timeout) + '.')
+                    sleep(1)
+                    timeout -= 1
+                attempts -= 1
+        else:
+            print(
+                '\n>> [bold red]Enough trying, we have a problem![/bold red]\n')
+    else:
+        # Closing file
+        f.close()
+        # instagram_upload()
+        # youtube_upload()
+
+
+while True:
+    if os.path.exists(str(Path(__file__).cwd()) + "\\assets\\build\\" + datetime.today().strftime('%d_%m_%Y')) == False:
+        subreddits_list()
+    else:
+        print(">> [bold yellow]Done for today, waiting![/bold yellow]")
+        sleep(60)

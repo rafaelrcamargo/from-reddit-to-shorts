@@ -18,7 +18,8 @@ SCOPES = ['https://www.googleapis.com/auth/youtube.upload']
 
 service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
 
-build_path = str(Path(__file__).cwd()) + "\\assets\\build"
+build_path = str(Path(__file__).cwd()) + "\\assets\\build\\" + \
+    datetime.today().strftime('%d_%m_%Y')
 
 
 def youtube_upload():
@@ -54,7 +55,8 @@ def youtube_upload():
                 'notifySubscribers': True
             }
 
-            mediaFile = MediaFileUpload(build_path + "\\" + name + ".mp4")
+            mediaFile = MediaFileUpload(
+                build_path + "\\" + datetime.today().strftime('%d_%m_%Y') + "\\" + name + ".mp4")
 
             response_upload = service.videos().insert(
                 part='snippet,status',
@@ -66,12 +68,15 @@ def youtube_upload():
 
             print("\n>> [blue]Uploaded![/blue]")
 
+            """ os.close(os.open(build_path + "\\" + name + ".mp4", os.O_RDWR))
+            os.close(os.open(build_path + "\\" + name + ".jpg", os.O_RDWR))
+
             os.remove(build_path + "\\" + name + ".mp4")
-            os.remove(build_path + "\\" + name + ".jpg")
+            os.remove(build_path + "\\" + name + ".jpg") """
 
             print(
                 "\n>> [green]Video + Thumb removed, ready for another![/green]")
         else:
-            sleep(600)
+            sleep(300)
     else:
         print("\n>> [italic green]All upload done![/italic green] 🥳")

@@ -3,6 +3,7 @@
 
 # * Imports
 # System
+from datetime import datetime
 import os
 # Dir Path
 from pathlib import Path
@@ -17,7 +18,8 @@ from instagrapi import Client
 # Cool Terminal Colors
 from rich import print
 
-build_path = str(Path(__file__).cwd()) + "\\assets\\build"
+build_path = str(Path(__file__).cwd()) + "\\assets\\build\\" + \
+    datetime.today().strftime('%d_%m_%Y')
 
 
 def instagram_upload():

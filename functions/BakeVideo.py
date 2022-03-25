@@ -27,7 +27,8 @@ from PIL import Image
 from rich import print
 
 # * Consts
-build_path = str(Path(__file__).cwd()) + "\\assets\\build"
+build_path = str(Path(__file__).cwd()) + "\\assets\\build\\" + \
+    datetime.today().strftime('%d_%m_%Y')
 
 
 def bake_video(data_path, subreddit):
@@ -89,7 +90,7 @@ def bake_video(data_path, subreddit):
 
         background = background.convert('RGB')
         background.save(str(Path(__file__).cwd()) +
-                        "\\assets\\build\\" + subreddit + "_" + datetime.today().strftime('%d_%m_%Y') + ".jpg", "JPEG")
+                        "\\assets\\build\\" + datetime.today().strftime('%d_%m_%Y') + "\\" + subreddit + "_" + datetime.today().strftime('%d_%m_%Y') + ".jpg", "JPEG")
 
         os.remove(str(build_path) + "\\frame.png")
 
@@ -98,9 +99,10 @@ def bake_video(data_path, subreddit):
             str(build_path) + "\\" + subreddit + "_" + datetime.today().strftime('%d_%m_%Y') + ".mp4", fps=30)
 
         print("\n>> [italic blue]New video ready![/italic blue] 🥳")
-        for clip in clips:
+        """ for clip in clips:
             clip.close()
+            os.close(clip)
         del clips
-        del final_clip
+        del final_clip """
     else:
         print(">> [bold red]You need to add more than one video![/bold red]")
