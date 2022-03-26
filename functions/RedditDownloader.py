@@ -51,7 +51,7 @@ def reddit_downloader(post):
 
         duration += int(reddit.duration)
 
-        if duration <= 40:
+        if duration <= 50:
             # * General Stats
             print("\n>> [bold yellow]General Stats:[/bold yellow]")
             print("- Duration: [bold blue]" +

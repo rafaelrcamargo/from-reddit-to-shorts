@@ -67,7 +67,7 @@ def subreddit_promt():
 
     while attempts >= 0:
         if main(subreddit):
-            print(">> [bold green]See ya later![/bold green]\n")
+            print(">> [bold green]See ya later![/bold green]")
             break
         else:
             print('>> Trying again. (' +
@@ -95,7 +95,7 @@ def subreddits_list():
         attempts = 10
         while attempts >= 0:
             if main(subreddit):
-                print(">> [bold green]See ya later![/bold green]\n")
+                print(">> [bold green]See ya later![/bold green]")
                 break
             else:
                 print('>> Trying again. (' +
