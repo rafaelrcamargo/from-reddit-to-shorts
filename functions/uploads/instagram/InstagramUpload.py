@@ -62,6 +62,6 @@ def instagram_upload():
             if media is not None:
                 print("\n>> [blue]Uploaded![/blue]")
         else:
-            sleep(120)
+            sleep(7.200)
     else:
         print("\n>> [italic green]All upload done![/italic green] 🥳")

@@ -40,9 +40,8 @@ print("and turn it into shorts content.\n")
 * * * Functions * * *
 """
 
+
 # ? Main - Requests + Reddit Scrapper
-
-
 def main(subreddit):
     # Making a get request
     r = api_request(subreddit)
@@ -111,8 +110,10 @@ def subreddits_list():
     else:
         # Closing file
         f.close()
+
+        # Uploads
         # instagram_upload()
-        # youtube_upload()
+        youtube_upload()
 
 
 """
@@ -124,4 +125,4 @@ while True:
         subreddits_list()
     else:
         print(">> [bold yellow]Done for today, waiting![/bold yellow]")
-        sleep(60)
+        sleep(7.200)
