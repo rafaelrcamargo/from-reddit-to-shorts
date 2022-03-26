@@ -49,6 +49,7 @@ def bake_video(data_path, subreddit):
                                    "/{}".format(filename)).resize(width=1080).set_position("center").crossfadein(0.1).crossfadeout(0.1))
 
     if len(clips) > 1:
+        print(">> [bold blue]Building the video...[/bold blue]")
         print(">> We're about to start concatenating together",
               len(clips), "clips.\n")
         # Concatenate videos

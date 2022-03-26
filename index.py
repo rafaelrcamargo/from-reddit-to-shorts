@@ -118,7 +118,7 @@ def subreddits_list():
 
         # Uploads
         # instagram_upload()
-        # youtube_upload()
+        youtube_upload()
 
 
 """
