@@ -28,10 +28,11 @@ from functions.RedditScraper import reddit_scraper
 # Uploads
 from functions.uploads.instagram.InstagramUpload import instagram_upload
 from functions.uploads.youtube.YouTubeUpload import youtube_upload
+
 # Remove SIG Error
-# from signal import signal, SIGPIPE, SIG_DFL
+from signal import signal, SIGPIPE, SIG_DFL
 # Ignore SIG_PIPE and don't throw exceptions on it... (http://docs.python.org/library/signal.html)
-# signal(SIGPIPE, SIG_DFL)
+signal(SIGPIPE, SIG_DFL)
 
 """
 * * * Starting dialog * * *
