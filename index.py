@@ -28,9 +28,9 @@ from functions.RedditScraper import reddit_scraper
 from functions.uploads.instagram.InstagramUpload import instagram_upload
 from functions.uploads.youtube.YouTubeUpload import youtube_upload
 
-from signal import signal, SIGPIPE, SIG_DFL 
-#Ignore SIG_PIPE and don't throw exceptions on it... (http://docs.python.org/library/signal.html)
-signal(SIGPIPE,SIG_DFL) 
+from signal import signal, SIGPIPE, SIG_DFL
+# Ignore SIG_PIPE and don't throw exceptions on it... (http://docs.python.org/library/signal.html)
+signal(SIGPIPE, SIG_DFL)
 
 """
 * * * Starting dialog * * *
@@ -129,4 +129,9 @@ while True:
         subreddits_list()
     else:
         print(">> [bold yellow]Done for today, waiting![/bold yellow]")
-        sleep(7.200)
+        total = 3600
+        while total > 0:
+            print("\n>> [red]Waiting for the next day![/red]")
+            print(">> [red]Time left: " + str(total) + " seconds[/red]")
+            sleep(60)
+            total -= 60

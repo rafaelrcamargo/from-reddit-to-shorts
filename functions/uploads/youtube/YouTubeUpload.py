@@ -72,11 +72,16 @@ def youtube_upload():
             os.close(os.open(build_path + "/" + name + ".jpg", os.O_RDWR))
 
             os.remove(build_path + "/" + name + ".mp4")
-            os.remove(build_path + "/" + name + ".jpg") 
+            os.remove(build_path + "/" + name + ".jpg")
             print(
                 "\n>> [green]Video + Thumb removed, ready for another![/green]")
             """
         else:
-            sleep(7200)
+            total = 3600
+            while total > 0:
+                print("\n>> [red]Waiting for the next upload![/red]")
+                print(">> [red]Time left: " + str(total) + " seconds[/red]")
+                sleep(60)
+                total -= 60
     else:
         print("\n>> [italic green]All upload done![/italic green] 🥳")
