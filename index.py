@@ -128,7 +128,7 @@ while True:
     if os.path.exists(str(Path(__file__).cwd()) + "/assets/build/" + datetime.today().strftime('%d_%m_%Y')) == False:
         subreddits_list()
     else:
-        print(">> [bold yellow]Done for today, waiting![/bold yellow]")
+        print("\n>> [bold yellow]Done for today, waiting![/bold yellow]")
         total = 3600
         while total > 0:
             print("\n>> [red]Waiting for the next day![/red]")
