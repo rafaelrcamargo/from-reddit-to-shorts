@@ -37,5 +37,5 @@ def reddit_scraper(r):
     if isBuild == "Yes": """
 
     print(">> [bold blue]Building the video...[/bold blue]")
-    bake_video(str(Path(__file__).cwd()) + "\\assets\\videos\\" +
-               post['data']['subreddit'] + "\\" + datetime.today().strftime('%d_%m_%Y'), post['data']['subreddit'])
+    bake_video(str(Path(__file__).cwd()) + "/assets/videos/" +
+               post['data']['subreddit'] + "/" + datetime.today().strftime('%d_%m_%Y'), post['data']['subreddit'])

@@ -8,7 +8,7 @@ import json
 import requests
 from requests_oauthlib import OAuth1
 
-build_path = str(Path(__file__).cwd()) + "\\assets\\build\\" + \
+build_path = str(Path(__file__).cwd()) + "/assets/build/" + \
     datetime.today().strftime('%d_%m_%Y')
 
 # TWITTER KEYS
@@ -29,7 +29,7 @@ f.close()
 MEDIA_ENDPOINT_URL = 'https://upload.twitter.com/1.1/media/upload.json'
 POST_TWEET_URL = 'https://api.twitter.com/1.1/statuses/update.json'
 
-VIDEO_FILENAME = build_path + "\\video.mp4"
+VIDEO_FILENAME = build_path + "/video.mp4"
 
 
 oauth = OAuth1(CONSUMER_KEY,

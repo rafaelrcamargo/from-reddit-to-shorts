@@ -27,7 +27,7 @@ from PIL import Image
 from rich import print
 
 # * Consts
-build_path = str(Path(__file__).cwd()) + "\\assets\\build\\" + \
+build_path = str(Path(__file__).cwd()) + "/assets/build/" + \
     datetime.today().strftime('%d_%m_%Y')
 
 
@@ -44,9 +44,9 @@ def bake_video(data_path, subreddit):
 
     for filename in filenames:
         clips.append(VideoFileClip(str(Path(__file__).cwd(
-        )) + "\\assets\\constants\\videos\\transition.mp4").resize(height=1920).set_position("center"))
+        )) + "/assets/constants/videos/transition.mp4").resize(height=1920).set_position("center"))
         clips.append(VideoFileClip(str(data_path) +
-                                   "\\{}".format(filename)).resize(width=1080).set_position("center").crossfadein(0.1).crossfadeout(0.1))
+                                   "/{}".format(filename)).resize(width=1080).set_position("center").crossfadein(0.1).crossfadeout(0.1))
 
     print(">> We're about to start concatenating together", len(clips), "clips.\n")
 
@@ -62,7 +62,7 @@ def bake_video(data_path, subreddit):
 
         # Music
         music = AudioFileClip(str(Path(__file__).cwd()) +
-                              "\\assets\\constants\\audio\\music_" + str(randint(1, 5)) + ".mp3").subclip(20, int(final_clip.duration) + 20)
+                              "/assets/constants/audio/music_" + str(randint(1, 5)) + ".mp3").subclip(20, int(final_clip.duration) + 20)
         music = music.volumex(0.1).audio_fadein(0.4)
 
         # Set Music
@@ -75,11 +75,11 @@ def bake_video(data_path, subreddit):
         final_clip.audio = new_audioclip
 
         # Bake thumb
-        clips[1].save_frame(str(build_path) + "\\frame.png", t=2)
+        clips[1].save_frame(str(build_path) + "/frame.png", t=2)
 
         img = Image.open(str(Path(__file__).cwd()) +
-                         "\\assets\\constants\\img\\thumb_frame.png")
-        background = Image.open(str(build_path) + "\\frame.png")
+                         "/assets/constants/img/thumb_frame.png")
+        background = Image.open(str(build_path) + "/frame.png")
 
         # resize the image
         size = (1080, 1920)
@@ -90,13 +90,13 @@ def bake_video(data_path, subreddit):
 
         background = background.convert('RGB')
         background.save(str(Path(__file__).cwd()) +
-                        "\\assets\\build\\" + datetime.today().strftime('%d_%m_%Y') + "\\" + subreddit + "_" + datetime.today().strftime('%d_%m_%Y') + ".jpg", "JPEG")
+                        "/assets/build/" + datetime.today().strftime('%d_%m_%Y') + "/" + subreddit + "_" + datetime.today().strftime('%d_%m_%Y') + ".jpg", "JPEG")
 
-        os.remove(str(build_path) + "\\frame.png")
+        os.remove(str(build_path) + "/frame.png")
 
         # Build video
         final_clip.write_videofile(
-            str(build_path) + "\\" + subreddit + "_" + datetime.today().strftime('%d_%m_%Y') + ".mp4", fps=30)
+            str(build_path) + "/" + subreddit + "_" + datetime.today().strftime('%d_%m_%Y') + ".mp4", fps=30)
 
         print("\n>> [italic blue]New video ready![/italic blue] 🥳")
         """ for clip in clips:

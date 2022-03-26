@@ -20,8 +20,8 @@ duration = 0
 def reddit_downloader(post):
     global duration
 
-    path = str(Path(__file__).cwd()) + "\\assets\\videos\\" + \
-        post.split("/")[2] + "\\" + datetime.today().strftime('%d_%m_%Y')
+    path = str(Path(__file__).cwd()) + "/assets/videos/" + \
+        post.split("/")[2] + "/" + datetime.today().strftime('%d_%m_%Y')
 
     isExist = os.path.exists(path)
     if not isExist:
