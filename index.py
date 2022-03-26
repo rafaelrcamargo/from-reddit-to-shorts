@@ -121,7 +121,7 @@ def subreddits_list():
 """
 
 while True:
-    if os.path.exists(str(Path(__file__).cwd()) + "\\assets\\build\\" + datetime.today().strftime('%d_%m_%Y')) == False:
+    if os.path.exists(str(Path(__file__).cwd()) + "/assets/build/" + datetime.today().strftime('%d_%m_%Y')) == False:
         subreddits_list()
     else:
         print(">> [bold yellow]Done for today, waiting![/bold yellow]")
