@@ -3,11 +3,17 @@
 
 # * Imports
 # Delay
-from datetime import datetime
-import json
-import os
-from pathlib import Path
 from time import sleep
+# Datetime
+from datetime import datetime
+
+# OS
+import os
+# JSON
+import json
+# Path
+from pathlib import Path
+
 # Cool Terminal Colors
 from rich import print
 # Cool Prompt
@@ -17,12 +23,24 @@ from rich.prompt import Prompt
 from functions.ApiRequest import api_request
 # Reddit scraper
 from functions.RedditScraper import reddit_scraper
+
+# Uploads
 from functions.uploads.instagram.InstagramUpload import instagram_upload
 from functions.uploads.youtube.YouTubeUpload import youtube_upload
+
+"""
+* * * Starting dialog * * *
+"""
 
 print("\n--- [yellow]FR[/yellow][bold red]TS[/bold red] - [bold]From Reddit to Shorts[/bold] ---")
 print("\nA simple script to scrape reddit content,")
 print("and turn it into shorts content.\n")
+
+"""
+* * * Functions * * *
+"""
+
+# ? Main - Requests + Reddit Scrapper
 
 
 def main(subreddit):
@@ -37,7 +55,7 @@ def main(subreddit):
         return False
 
 
-# ? Choose subreddit prompt
+# ? Choose subreddit method
 def subreddit_promt():
     subreddit = Prompt.ask(
         ">> [blue]Choose a subreddit?[/blue]", default="AbruptChaos")
@@ -63,7 +81,7 @@ def subreddit_promt():
         print('>> [bold red]Enough trying, we have a problem![/bold red]')
 
 
-# ? Subreddits list scrapping
+# ? Subreddits list method
 def subreddits_list():
     # Opening JSON file
     f = open('subreddits.json')
@@ -96,6 +114,10 @@ def subreddits_list():
         # instagram_upload()
         # youtube_upload()
 
+
+"""
+* * * Main loop * * *
+"""
 
 while True:
     if os.path.exists(str(Path(__file__).cwd()) + "\\assets\\build\\" + datetime.today().strftime('%d_%m_%Y')) == False:
