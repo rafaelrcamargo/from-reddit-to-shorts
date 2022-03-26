@@ -48,9 +48,9 @@ def bake_video(data_path, subreddit):
         clips.append(VideoFileClip(str(data_path) +
                                    "/{}".format(filename)).resize(width=1080).set_position("center").crossfadein(0.1).crossfadeout(0.1))
 
-    print(">> We're about to start concatenating together", len(clips), "clips.\n")
-
     if len(clips) > 1:
+        print(">> We're about to start concatenating together",
+              len(clips), "clips.\n")
         # Concatenate videos
         final_clip = concatenate_videoclips(
             [clip for clip in clips], method='compose')
