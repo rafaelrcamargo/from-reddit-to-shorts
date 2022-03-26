@@ -49,7 +49,7 @@ def youtube_upload():
                     'tags': ['fun', 'funny', 'comedy', 'meme', 'trending', 'memes', 'Entertainment', 'nonsense', 'reddit', 'youtube', 'subscribe', 'viral', 'reel', 'reels', 'Shorts', 'Youtubeshorts']
                 },
                 'status': {
-                    'privacyStatus': 'private',
+                    'privacyStatus': 'public',
                     'selfDeclaredMadeForKids': False,
                 },
                 'notifySubscribers': True
