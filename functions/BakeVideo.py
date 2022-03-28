@@ -64,7 +64,7 @@ def bake_video(data_path, subreddit):
 
         # Music
         music = AudioFileClip(str(Path(__file__).cwd()) +
-                              "/assets/constants/audio/music_" + str(randint(1, 5)) + ".mp3").subclip(20, int(final_clip.duration) + 20)
+                              "/assets/constants/audio/music_" + str(randint(1, 5)) + ".mp3").subclip(0, int(final_clip.duration))
         music = music.volumex(0.1).audio_fadein(0.4)
 
         # Set Music
