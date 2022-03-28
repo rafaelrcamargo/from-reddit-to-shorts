@@ -46,31 +46,31 @@ def youtube_upload(filename):
         print(f">> [bold]Subreddit[/bold]: {subreddit}")
         print(f">> [bold]Title[/bold]: {title}")
         try:
-            """ request_body = {
-                    'snippet': {
-                        'categoryId': 24,
+            request_body = {
+                'snippet': {
+                    'categoryId': 24,
 
-                        'title': title + " (" + subreddit + ") - trending goes brrr #Shorts",
+                    'title': title + " (" + subreddit + ") - trending goes brrr #Shorts",
 
-                        'description': title + " (" + subreddit + ") - trending goes brrr #Shorts\n\n\n#Entertainment, #fun, #funny, #comedy, #meme, #trending, #memes, #nonsense, #reddit, #viral, #reel.",
+                    'description': title + " (" + subreddit + ") - trending goes brrr #Shorts\n\n\n#Entertainment, #fun, #funny, #comedy, #meme, #trending, #memes, #nonsense, #reddit, #viral, #reel.",
 
-                        'tags': ['fun', 'funny', 'comedy', 'meme', 'trending', 'memes', 'Entertainment', 'nonsense', 'reddit', 'youtube', 'subscribe', 'viral', 'reel', 'reels', 'Shorts', 'Youtubeshorts']
-                    },
-                    'status': {
-                        'privacyStatus': 'public',
-                        'selfDeclaredMadeForKids': False,
-                    },
-                    'notifySubscribers': True
-                }
-                mediaFile = MediaFileUpload(
-                    build_path + "/" + name + ".mp4")
-                response_upload = service.videos().insert(
-                    part='snippet,status',
-                    body=request_body,
-                    media_body=mediaFile
-                ).execute()
+                    'tags': ['fun', 'funny', 'comedy', 'meme', 'trending', 'memes', 'Entertainment', 'nonsense', 'reddit', 'youtube', 'subscribe', 'viral', 'reel', 'reels', 'Shorts', 'Youtubeshorts']
+                },
+                'status': {
+                    'privacyStatus': 'public',
+                    'selfDeclaredMadeForKids': False,
+                },
+                'notifySubscribers': True
+            }
+            mediaFile = MediaFileUpload(
+                build_path + "/" + name + ".mp4")
+            response_upload = service.videos().insert(
+                part='snippet,status',
+                body=request_body,
+                media_body=mediaFile
+            ).execute()
 
-                print("\n>> ", response_upload) """
+            print("\n>> ", response_upload)
             print("\n>> [blue]Uploaded![/blue]")
         except Exception as e:
             print(f"\n>> [red]Error: {str(e)}[/red]")
