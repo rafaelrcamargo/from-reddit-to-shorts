@@ -4,26 +4,22 @@
 
 # * Imports
 # Delay
+import json
 from time import sleep
 # Datetime
 from datetime import datetime
 
 # OS
 import os
-# JSON
-import json
 # Path
 from pathlib import Path
 
 # Cool Terminal Colors
 from rich import print
-# Cool Prompt
-from rich.prompt import Prompt
 
-# Api request
-from functions.ApiRequest import api_request
-# Reddit scraper
-from functions.RedditScraper import reddit_scraper
+# Methods
+from functions.methods.SubredditsList import subreddits_list
+from functions.methods.SubredditPrompt import subreddit_prompt
 
 # Uploads
 from functions.uploads.instagram.InstagramUpload import instagram_upload
@@ -34,106 +30,62 @@ from signal import signal, SIGPIPE, SIG_DFL
 # Ignore SIG_PIPE and don't throw exceptions on it... (http://docs.python.org/library/signal.html)
 signal(SIGPIPE, SIG_DFL)
 
+SEPARATOR = "\n"
+for i in range(0, 21):
+    if i % 2 == 0:
+        SEPARATOR += "[red]-[/red] "
+    else:
+        SEPARATOR += "[yellow]-[/yellow] "
+
 """
 * * * Starting dialog * * *
 """
 
+print(SEPARATOR)
 print("\n--- [yellow]FR[/yellow][bold red]TS[/bold red] - [bold]From Reddit to Shorts[/bold] ---")
 print("\nA simple script to scrape reddit content,")
-print("and turn it into shorts content.\n")
-
-"""
-* * * Functions * * *
-"""
-
-
-# ? Main - Requests + Reddit Scrapper
-def main(subreddit):
-    # Making a get request
-    r = api_request(subreddit)
-
-    if r.status_code == 200:
-        reddit_scraper(r)
-        return True
-    else:
-        print('>> [bold red]Error![/bold red]')
-        return False
-
-
-# ? Choose subreddit method
-def subreddit_promt():
-    subreddit = Prompt.ask(
-        ">> [blue]Choose a subreddit?[/blue]", default="AbruptChaos")
-
-    attempts = 10
-
-    while attempts >= 0:
-        if main(subreddit):
-            print(">> [bold green]See ya later![/bold green]")
-            break
-        else:
-            print('>> Trying again. (' +
-                  str(attempts) + ' attempts left)\n')
-
-            timeout = 3
-            while timeout > 0:
-                print('>> [italic]Trying again in[/italic] ' +
-                      str(timeout) + '.')
-                sleep(1)
-                timeout -= 1
-            attempts -= 1
-    else:
-        print('>> [bold red]Enough trying, we have a problem![/bold red]')
-
-
-# ? Subreddits list method
-def subreddits_list():
-    # Opening JSON file
-    f = open('subreddits.json')
-    subreddits = json.load(f)
-
-    for subreddit in subreddits['list']:
-        print('>> [blue]Scraping [bold]' + subreddit + '[/bold]...[/blue]')
-        attempts = 10
-        while attempts >= 0:
-            if main(subreddit):
-                print(">> [bold green]See ya later![/bold green]")
-                break
-            else:
-                print('>> Trying again. (' +
-                      str(attempts) + ' attempts left)\n')
-
-                timeout = 3
-                while timeout > 0:
-                    print('>> [italic]Trying again in[/italic] ' +
-                          str(timeout) + '.')
-                    sleep(1)
-                    timeout -= 1
-                attempts -= 1
-        else:
-            print(
-                '\n>> [bold red]Enough trying, we have a problem![/bold red]\n')
-    else:
-        # Closing file
-        f.close()
-
-        # Uploads
-        # instagram_upload()
-        youtube_upload()
-
+print("and turn it into shorts content.")
+print(SEPARATOR)
 
 """
 * * * Main loop * * *
 """
 
-while True:
-    if os.path.exists(str(Path(__file__).cwd()) + "/assets/build/" + datetime.today().strftime('%d_%m_%Y')) == False:
-        subreddits_list()
-    else:
-        print("\n>> [bold yellow]Done for today, waiting![/bold yellow]")
-        total = 3600
-        while total > 0:
-            print("\n>> [red]Waiting for the next day![/red]")
-            print(">> [red]Time left: " + str(total) + " seconds[/red]")
-            sleep(60)
-            total -= 60
+
+def timeout(time, steps, action):
+    total = time
+    while total > 0:
+        print(f"\n>> [red]Waiting for the next [bold]{action}[/bold]![/red]")
+        print(f">> [red]Time left: {str(total)} seconds[/red]")
+        sleep(steps)
+        total -= steps
+
+
+def main():
+    while True:
+        if os.path.exists(str(Path(__file__).cwd()) + "/assets/build/" + datetime.today().strftime('%d_%m_%Y')) == False:
+            # Opening JSON file
+            f = open('subreddits.json')
+            subreddits = json.load(f)
+
+            for subreddit in subreddits['list']:
+                # * Methods
+                # subreddit_prompt()
+                video_path = subreddits_list(subreddit)
+
+                if video_path != False and video_path != None:
+                    youtube_upload(video_path)
+                    timeout(3600, 300, "upload")
+                else:
+                    print(">> [bold red]Error, no such video![/bold red]")
+            else:
+                # Closing file
+                f.close()
+
+        else:
+            print("\n>> [bold yellow]Done for today, waiting![/bold yellow]")
+            timeout(7200, 600, "day")
+
+
+if __name__ == "__main__":
+    main()

@@ -14,18 +14,15 @@ from redvid import Downloader
 # Cool Terminal Colors
 from rich import print
 
-duration = 0
-
 
 def reddit_downloader(post):
-    global duration
+    duration = 0
 
     path = str(Path(__file__).cwd()) + "/assets/videos/" + \
         post.split("/")[2] + "/" + datetime.today().strftime('%d_%m_%Y')
 
     isExist = os.path.exists(path)
     if not isExist:
-        duration = 0
         os.makedirs(path)
         print(">> [italic blue]The new directory is created![/italic blue]\n")
 
@@ -54,14 +51,13 @@ def reddit_downloader(post):
         if duration <= 50:
             # * General Stats
             print("\n>> [bold yellow]General Stats:[/bold yellow]")
-            print("- Duration: [bold blue]" +
-                  str(duration) + "[/bold blue] seconds")
+            print(
+                f"- Duration: [bold blue]{str(duration)}[/bold blue] seconds")
 
             # * Video Stats
             print("\n>> [bold blue]Video Stats:[/bold blue]")
-            print("- Duration: [blue]" +
-                  str(reddit.duration) + "[/blue] seconds")
-            print("- Size: [blue]" + str(reddit.size) + "[/blue] bytes\n")
+            print(f"- Duration: [blue]{str(reddit.duration)}[/blue] seconds")
+            print(f"- Size: [blue]{str(reddit.size)}[/blue] bytes\n")
 
             # * Downloading
             if reddit.duration < 20 and reddit.duration > 2 and reddit.size <= 24 * (1 << 20):
@@ -75,8 +71,8 @@ def reddit_downloader(post):
         else:
             # * General Stats
             print("\n>> [bold yellow]General Stats:[/bold yellow]")
-            print("- Duration: [bold blue]" +
-                  str(duration) + "[/bold blue] seconds\n")
+            print(
+                f"- Duration: [bold blue]{str(duration)}[/bold blue] seconds\n")
             print('>> [green]We already have enough videos![/green]')
             print('>> [bold yellow]Let\'s build it?[/bold yellow]\n')
             return False

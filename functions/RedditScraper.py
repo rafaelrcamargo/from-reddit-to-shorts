@@ -7,7 +7,6 @@ from datetime import datetime
 from pathlib import Path
 from rich import print
 from rich.prompt import Prompt
-from functions.BakeVideo import bake_video
 
 # Reddit Downloader
 from functions.RedditDownloader import reddit_downloader
@@ -30,11 +29,11 @@ def reddit_scraper(r):
 
         except AttributeError:
             print("Error!\n")
+            return False
 
     # Optional baking prompt
     """ isBuild = Prompt.ask(">> [blue]Do you want to build the video?", choices=[
                          "Yes", "No"], default="Yes")
     if isBuild == "Yes": """
 
-    bake_video(str(Path(__file__).cwd()) + "/assets/videos/" +
-               post['data']['subreddit'] + "/" + datetime.today().strftime('%d_%m_%Y'), post['data']['subreddit'])
+    return str(Path(__file__).cwd()) + "/assets/videos/" + post['data']['subreddit'] + "/" + datetime.today().strftime('%d_%m_%Y')

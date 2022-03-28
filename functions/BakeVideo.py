@@ -33,9 +33,6 @@ build_path = str(Path(__file__).cwd()) + "/assets/build/" + \
 
 def bake_video(data_path, subreddit):
     isExist = os.path.exists(build_path)
-    if not isExist:
-        os.makedirs(build_path)
-        print(">> [italic blue]The new directory is created![/italic blue]\n")
 
     # * Clips
     filenames = next(walk(data_path), (None, None, []))[2]
@@ -49,9 +46,13 @@ def bake_video(data_path, subreddit):
                                    "/{}".format(filename)).resize(width=1080).set_position("center").crossfadein(0.1).crossfadeout(0.1))
 
     if len(clips) > 1:
+        if not isExist:
+            os.makedirs(build_path)
+            print(">> [italic blue]The new directory is created![/italic blue]\n")
+
         print(">> [bold blue]Building the video...[/bold blue]")
-        print(">> We're about to start concatenating together",
-              len(clips), "clips.\n")
+        print(
+            f">> We're about to start concatenating together {len(clips)} clips.")
         # Concatenate videos
         final_clip = concatenate_videoclips(
             [clip for clip in clips], method='compose')
@@ -76,6 +77,8 @@ def bake_video(data_path, subreddit):
         final_clip.audio = new_audioclip
 
         # Bake thumb
+        print("\n>> [bold blue]Building the thumbnail...[/bold blue]")
+
         clips[1].save_frame(str(build_path) + "/frame.png", t=2)
 
         img = Image.open(str(Path(__file__).cwd()) +
@@ -100,10 +103,8 @@ def bake_video(data_path, subreddit):
             str(build_path) + "/" + subreddit + "_" + datetime.today().strftime('%d_%m_%Y') + ".mp4", fps=30)
 
         print("\n>> [italic blue]New video ready![/italic blue] 🥳")
-        """ for clip in clips:
-            clip.close()
-            os.close(clip)
-        del clips
-        del final_clip """
+        return str(build_path) + "/" + subreddit + "_" + datetime.today().strftime('%d_%m_%Y') + ".mp4"
+
     else:
         print(">> [bold red]You need to add more than one video![/bold red]")
+        return False

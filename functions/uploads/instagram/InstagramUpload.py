@@ -33,7 +33,8 @@ def instagram_upload():
 
     filenames = next(os.walk(build_path), (None, None, []))[2]
 
-    print(">> [yellow]Successful login, starting the uploads![/yellow]")
+    print(
+        "\n>> [yellow]Success logging in[/yellow], starting the [blue]uploads![/blue]")
 
     for filename in filenames:
         if filename.split(".")[1] == "jpg":
@@ -42,9 +43,9 @@ def instagram_upload():
             title = " ".join(re.findall(
                 '[A-Z][^A-Z]*', filename.split("_")[0]))
 
-            print("\n>> Name: " + name)
-            print(">> Subreddit: " + subreddit)
-            print(">> Title: " + title)
+            print(f"\n>> Name: {name}")
+            print(f">> Subreddit: {subreddit}")
+            print(f">> Title: {title}")
 
             media = cl.clip_upload(
                 path=build_path + "/" + name + ".mp4",
@@ -65,7 +66,7 @@ def instagram_upload():
             total = 3600
             while total > 0:
                 print("\n>> [red]Waiting for the next upload![/red]")
-                print(">> [red]Time left: " + str(total) + " seconds[/red]")
+                print(f">> [red]Time left: {str(total)} seconds[/red]")
                 sleep(60)
                 total -= 60
     else:
