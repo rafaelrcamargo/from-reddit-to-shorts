@@ -39,7 +39,7 @@ A simple script to scrape **Reddit** content and turn it into **youtube shorts**
 > python index.py
 ```
 
-- Then the script will ask you for the subreddit you want to scrape, with that you the script will start scraping the content and downloading the videos.
+- Then the script will ask you for the subreddit you want to scrape, with that you the script will start scrapping the content and downloading the videos.
 
 ### Contributing
 

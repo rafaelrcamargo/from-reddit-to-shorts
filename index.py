@@ -79,7 +79,7 @@ def main():
 
                 if video_path != False and video_path != None:
                     youtube_upload(video_path)
-                    timeout(3600, 300, "upload")
+                    timeout(3600, 900, "upload")
                 else:
                     print(">> [bold red]Error, no such video![/bold red]")
             else:

@@ -15,7 +15,7 @@ from functions.reddit_scrapper import reddit_scrapper
 def subreddits_list(subreddit):
     """Requesting the subreddit data"""
 
-    print(f"\n>> [blue]Scraping [bold]{subreddit}[/bold]...[/blue]")
+    print(f"\n>> [blue]Scrapping [bold]{subreddit}[/bold]...[/blue]")
     attempts = 10
     while attempts >= 0:
         # ? Requesting the subreddit data
@@ -26,7 +26,7 @@ def subreddits_list(subreddit):
             # * Scrapping video
             video_location = reddit_scrapper(req_resp)
 
-            # ! Error in video scraping
+            # ! Error in video scrapping
             if video_location is False or video_location is None:
                 break
 

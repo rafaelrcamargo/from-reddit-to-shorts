@@ -36,19 +36,18 @@ def reddit_downloader(post):
 
     path_exists = os.path.exists(path)
 
-    if DURATION >= 40:
-        # * General Stats
-        print("\n>> [green]We already have enough videos![/green]")
-        print(">> [bold yellow]Let's build it?[/bold yellow]\n")
-        return False
-
     if not path_exists:
         DURATION = 0
         os.makedirs(path)
         print(">> [italic blue]The new directory is created![/italic blue]")
 
-    print(separator(21))
-    print()
+    print(separator(21), "\n")
+
+    if DURATION >= 40:
+        # * General Stats
+        print(">> [green]We already have enough videos![/green]")
+        print(">> [bold yellow]Let's build it?[/bold yellow]\n")
+        return False
 
     # * Basics
     # Redvid setup
@@ -70,25 +69,26 @@ def reddit_downloader(post):
         # * Get Videos Stats
         reddit.check()
 
-        DURATION += int(reddit.duration)
-
-        # * General Stats
-        print("\n>> [bold yellow]General Stats:[/bold yellow]")
-        print(f"- Duration: [bold blue]{str(DURATION)}[/bold blue] seconds")
-
-        # * Video Stats
-        print("\n>> [bold blue]Video Stats:[/bold blue]")
-        print(f"- Duration: [blue]{str(reddit.duration)}[/blue] seconds")
-        print(f"- Size: [blue]{str(reddit.size)}[/blue] bytes\n")
-
         # * Downloading
         if reddit.duration < 20 and reddit.duration > 2:
+            DURATION += int(reddit.duration)
+
+            # * Video Stats
+            print("\n>> [bold blue]Video Stats:[/bold blue]")
+            print(f"- Duration: [blue]{str(reddit.duration)}[/blue] seconds")
+            print(f"- Size: [blue]{str(reddit.size)}[/blue] bytes\n")
+
+            # * General Stats
+            print("\n>> [bold yellow]General Stats:[/bold yellow]")
+            print(f"- Duration: [bold blue]{str(DURATION)}[/bold blue] seconds")
+
             reddit.download()
             print("\n>> [green]Video downloaded![/green]")
+            return True
         else:
-            print(">> [red]Not that good for shorts! [bold]:([/bold][/red]")
+            print("\n>> [red]Not that good for shorts! [bold]:([/bold][/red]")
+            return None
 
-        return True
     except:
         print("\n>> [red]Video not found![/red]")
         return None

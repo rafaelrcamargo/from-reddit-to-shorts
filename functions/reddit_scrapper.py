@@ -12,7 +12,7 @@ from functions.reddit_downloader import reddit_downloader
 # FRTS "Transition"
 TRANSITION = "--- [yellow]FR[/yellow][bold red]TS[/bold red] "
 TRANSITION += "--- [yellow]FR[/yellow][bold red]TS[/bold red] "
-TRANSITION += "--- [yellow]FR[/yellow][bold red]TS[/bold red] ---\n"
+TRANSITION += "--- [yellow]FR[/yellow][bold red]TS[/bold red] ---"
 
 
 def reddit_scrapper(response):

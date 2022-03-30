@@ -64,6 +64,8 @@ def bake_video(data_path, subreddit):
             .crossfadeout(0.1)
         )
 
+    print("\n>> Clips:", len(clips))
+
     # ? Check quantity of clips
     if len(clips) <= 1:
         print(">> [bold red]You need to add more than one video![/bold red]")
