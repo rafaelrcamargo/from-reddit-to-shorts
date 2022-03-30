@@ -81,13 +81,18 @@ def youtube_upload(filename):
             print(">>", request_body)
             mediaFile = MediaFileUpload(build_path + "/" + name + ".mp4")
             print(">>", mediaFile)
-            response_upload = (
-                service.videos()
-                .insert(part="snippet,status", body=request_body, media_body=mediaFile)
-                .execute()
-            )
-            print("\n>> ", response_upload)
-            print("\n>> [blue]Uploaded![/blue]")
+            try:
+                response_upload = (
+                    service.videos()
+                    .insert(
+                        part="snippet,status", body=request_body, media_body=mediaFile
+                    )
+                    .execute()
+                )
+                print("\n>> ", response_upload)
+                print("\n>> [blue]Uploaded![/blue]")
+            except:
+                print("\n>> [red]Upload failed![/red]")
         except Exception as e:
             print(f"\n>> [red]Error![/red]")
             print(f"\n>> [red]Error: {str(e)}[/red]")
