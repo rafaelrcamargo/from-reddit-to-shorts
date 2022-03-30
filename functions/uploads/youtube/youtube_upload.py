@@ -39,7 +39,9 @@ def youtube_upload(filename):
         print(f"\n>> [bold]Name[/bold]: {name}")
         print(f">> [bold]Subreddit[/bold]: {subreddit}")
         print(f">> [bold]Title[/bold]: {title}")
+
         try:
+            print(">> Try:")
             request_body = {
                 "snippet": {
                     "categoryId": 24,
@@ -76,17 +78,21 @@ def youtube_upload(filename):
                 },
                 "notifySubscribers": True,
             }
+            print(">>", request_body)
             mediaFile = MediaFileUpload(build_path + "/" + name + ".mp4")
+            print(">>", mediaFile)
             response_upload = (
                 service.videos()
                 .insert(part="snippet,status", body=request_body, media_body=mediaFile)
                 .execute()
             )
-
             print("\n>> ", response_upload)
             print("\n>> [blue]Uploaded![/blue]")
         except Exception as e:
+            print(f"\n>> [red]Error![/red]")
             print(f"\n>> [red]Error: {str(e)}[/red]")
+
+        print(">> Uploaded?")
     else:
         print(separator(21))
         print(
