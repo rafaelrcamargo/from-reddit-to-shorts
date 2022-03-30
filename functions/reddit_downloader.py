@@ -39,7 +39,7 @@ def reddit_downloader(post):
     if not path_exists:
         DURATION = 0
         os.makedirs(path)
-        print(">> [italic blue]The new directory is created![/italic blue]")
+        print("\n>> [italic blue]The new directory is created![/italic blue]")
 
     print(separator(21), "\n")
 
