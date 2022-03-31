@@ -1,6 +1,7 @@
 from datetime import datetime
 from pathlib import Path
 import re
+from time import sleep
 from googleapiclient.http import MediaFileUpload
 
 # Cool Terminal Colors
@@ -22,14 +23,18 @@ build_path = (
     str(Path(__file__).cwd()) + "/assets/build/" + datetime.today().strftime("%d_%m_%Y")
 )
 
+ATTEMPTS = 10
+
 
 def youtube_upload(filename):
     print("\n>> [yellow]Success logging in[/yellow], starting the [blue]upload![/blue]")
 
+    global ATTEMPTS
+
     if filename.split(".")[1] == "mp4":
         print(f"\n>> [yellow]File[/yellow]: {filename}")
-        # get last item from array
 
+        # get last item from array
         name = filename.split("/")[-1].split(".")[0]
         subreddit = "r/" + filename.split("/")[-1].split("_")[0]
         title = " ".join(
@@ -41,7 +46,6 @@ def youtube_upload(filename):
         print(f">> [bold]Title[/bold]: {title}")
 
         try:
-            print(">> Try:")
             request_body = {
                 "snippet": {
                     "categoryId": 24,
@@ -78,9 +82,7 @@ def youtube_upload(filename):
                 },
                 "notifySubscribers": True,
             }
-            print(">>", request_body)
             mediaFile = MediaFileUpload(build_path + "/" + name + ".mp4")
-            print(">>", mediaFile)
             try:
                 response_upload = (
                     service.videos()
@@ -93,11 +95,20 @@ def youtube_upload(filename):
                 print("\n>> [blue]Uploaded![/blue]")
             except:
                 print("\n>> [red]Upload failed![/red]")
+                print(f"\n>> Trying again. ({str(ATTEMPTS)} attempts left)")
+
+                timeout = 30
+                while timeout > 0:
+                    print(f">> [italic]Trying again in[/italic] {str(timeout)}.")
+                    sleep(10)
+                    timeout -= 10
+                ATTEMPTS -= 1
+
+                youtube_upload(filename)
+                return
         except Exception as e:
             print(f"\n>> [red]Error![/red]")
             print(f"\n>> [red]Error: {str(e)}[/red]")
-
-        print(">> Uploaded?")
     else:
         print(separator(21))
         print(
