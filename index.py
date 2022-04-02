@@ -27,10 +27,9 @@ from functions.uploads.youtube.youtube_upload import youtube_upload
 from functions.utils.separator import separator
 
 # Remove SIG Error
-from signal import signal, SIGPIPE, SIG_DFL
-
+# from signal import signal, SIGPIPE, SIG_DFL
 # Ignore SIG_PIPE and don't throw exceptions on it... (http://docs.python.org/library/signal.html)
-signal(SIGPIPE, SIG_DFL)
+# signal(SIGPIPE, SIG_DFL)
 
 """
 * * * Starting dialog * * *

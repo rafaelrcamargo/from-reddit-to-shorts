@@ -93,8 +93,11 @@ def youtube_upload(filename):
                 )
                 print("\n>> ", response_upload)
                 print("\n>> [blue]Uploaded![/blue]")
-            except:
-                print("\n>> [red]Upload failed![/red]")
+            except Exception as e:
+                if ATTEMPTS <= 0:
+                    return
+
+                print(f"\n>> [red]Upload failed![/red] {str(e)}")
                 print(f"\n>> Trying again. ({str(ATTEMPTS)} attempts left)")
 
                 timeout = 30
@@ -103,9 +106,7 @@ def youtube_upload(filename):
                     sleep(10)
                     timeout -= 10
                 ATTEMPTS -= 1
-
                 youtube_upload(filename)
-                return
         except Exception as e:
             print(f"\n>> [red]Error![/red]")
             print(f"\n>> [red]Error: {str(e)}[/red]")
