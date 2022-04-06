@@ -43,7 +43,7 @@ def reddit_downloader(post):
 
     print(separator(21), "\n")
 
-    if DURATION >= 40:
+    if DURATION >= 30:
         # * General Stats
         print(">> [green]We already have enough videos![/green]")
         print(">> [bold yellow]Let's build it?[/bold yellow]\n")
@@ -70,7 +70,7 @@ def reddit_downloader(post):
         reddit.check()
 
         # * Downloading
-        if reddit.duration < 20 and reddit.duration > 2:
+        if reddit.duration < 18 and reddit.duration > 2:
             DURATION += int(reddit.duration)
 
             # * Video Stats
