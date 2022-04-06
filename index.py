@@ -18,6 +18,7 @@ from rich import print
 
 # Methods
 from functions.methods.subreddits_list import subreddits_list
+from functions.uploads.youtube.youtube_upload import youtube_upload
 
 # Uploads
 from functions.utils.separator import separator
@@ -50,8 +51,8 @@ def main():
                 video_path = subreddits_list(subreddit)
 
                 if bool(video_path):
-                    # youtube_upload(video_path)
-                    timeout(30, 10, "upload")
+                    youtube_upload(video_path)
+                    timeout(10800, 1800, "upload")
                 else:
                     print(">> [bold red]Error, no such video![/bold red]")
 
@@ -60,7 +61,7 @@ def main():
 
         else:
             print("\n>> [bold yellow]Done for today, waiting![/bold yellow]")
-            timeout(7200, 600, "day")
+            timeout(14400, 1800, "day")
 
 
 if __name__ == "__main__":
