@@ -83,7 +83,7 @@ def bake_video(data_path, subreddit):
     # Set Size
     # final_clip = final_clip.size((1080, 1920))
     # Set VFX
-    final_clip = final_clip.vfx.fx.colorx(10)
+    # final_clip = final_clip.vfx.fx.colorx(10)
 
     # Music
     music = AudioFileClip(
