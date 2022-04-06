@@ -89,8 +89,8 @@ def bake_video(data_path, subreddit):
     music = AudioFileClip(
         f"{str(Path(__file__).cwd())}/assets/constants/audio/music_{str(randint(1, 5))}.mp3"
     )
-    music = music.fx(volumex, 0.1)
-    music = music.fx(audio_fadein, 0.4)
+    # music = music.fx(volumex, 0.1)
+    # music = music.fx(audio_fadein, 0.4)
 
     # Composite Audio Clips
     if final_clip.audio is not None:
