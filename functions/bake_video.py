@@ -81,15 +81,15 @@ def bake_video(data_path, subreddit):
     final_clip = concatenate_videoclips(clips, method="compose")
 
     # Set Size
-    final_clip = final_clip.size((1080, 1920))
+    # final_clip = final_clip.size((1080, 1920))
     # Set VFX
-    final_clip = final_clip.vfx.fx.colorx(1.1)
+    # final_clip = final_clip.vfx.fx.colorx(1.1)
 
     # Music
     music_path = f"/assets/constants/audio/music_{str(randint(1, 5))}.mp3"
     music = AudioFileClip(f"{str(Path(__file__).cwd())}{music_path}")
-    music = music.fx(volumex, 0.1)
-    music = music.fx(audio_fadein, 0.4)
+    # music = music.fx(volumex, 0.1)
+    # music = music.fx(audio_fadein, 0.4)
 
     # Composite Audio Clips
     if final_clip.audio is not None:
