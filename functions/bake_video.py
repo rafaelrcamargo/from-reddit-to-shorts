@@ -4,6 +4,9 @@
 # Sys os
 import os
 
+# Date
+from datetime import datetime
+
 # Sys os walk method
 from os import walk
 
@@ -12,20 +15,15 @@ from pathlib import Path
 
 # Random number
 from random import randint
-
-# Date
-from datetime import datetime
+import shutil
 
 # Moviepy Video Editor
 from moviepy.editor import (
-    VideoFileClip,
     AudioFileClip,
     CompositeAudioClip,
+    VideoFileClip,
     concatenate_videoclips,
 )
-
-# Moviepy VFX
-from moviepy.audio.fx import volumex, audio_fadein
 
 # Image
 from PIL import Image
@@ -33,9 +31,12 @@ from PIL import Image
 # Cool Terminal Colors
 from rich import print
 
+# Moviepy VFX
+
+
 # * Consts
 DATE = datetime.today().strftime("%d_%m_%Y")
-BUILD_PATH = str(Path(__file__).cwd()) + "/assets/build/" + DATE
+BUILD_PATH = str(Path(__file__).cwd()) + "/temp/build/" + DATE
 
 
 def bake_video(data_path, subreddit):
@@ -51,7 +52,7 @@ def bake_video(data_path, subreddit):
     for filename in filenames:
         clips.append(
             VideoFileClip(
-                str(Path(__file__).cwd()) + "/assets/constants/videos/transition.mp4",
+                str(Path(__file__).cwd()) + "/assets/videos/transition.mp4",
                 target_resolution=(1920, None),
             ).set_position("center")
         )
@@ -82,19 +83,15 @@ def bake_video(data_path, subreddit):
 
     # Set Size
     # final_clip = final_clip.size((1080, 1920))
-    # Set VFX
-    # final_clip = final_clip.vfx.fx.colorx(1.1)
 
     # Music
-    music_path = f"/assets/constants/audio/music_{str(randint(1, 5))}.mp3"
+    music_path = f"/assets/audios/{str(randint(1, 9))}.mp3"
     music = AudioFileClip(f"{str(Path(__file__).cwd())}{music_path}")
-    # music = music.fx(volumex, 0.1)
-    # music = music.fx(audio_fadein, 0.4)
+    music = music.max_volume(0.5)
 
     # Composite Audio Clips
     if final_clip.audio is not None:
-        audioclip = final_clip.audio.volumex(1).audio_fadein(0.4)
-        new_audioclip = CompositeAudioClip([audioclip, music])
+        new_audioclip = CompositeAudioClip([final_clip.audio, music])
     else:
         new_audioclip = CompositeAudioClip([music])
 
@@ -107,9 +104,7 @@ def bake_video(data_path, subreddit):
 
     clips[1].save_frame(str(BUILD_PATH) + "/frame.png", t=2)
 
-    img = Image.open(
-        str(Path(__file__).cwd()) + "/assets/constants/img/thumb_frame.png"
-    )
+    img = Image.open(str(Path(__file__).cwd()) + "/assets/images/thumb_frame.png")
     background = Image.open(str(BUILD_PATH) + "/frame.png")
 
     # Resize the image
@@ -121,7 +116,7 @@ def bake_video(data_path, subreddit):
 
     background = background.convert("RGB")
     background.save(
-        f"{str(Path(__file__).cwd())}/assets/build/{DATE}/{subreddit}_{DATE}.jpg",
+        f"{str(Path(__file__).cwd())}/temp/build/{DATE}/{subreddit}_{DATE}.jpg",
         "JPEG",
     )
 
@@ -136,6 +131,10 @@ def bake_video(data_path, subreddit):
     )
 
     final_clip.close()
+
+    # delete the temp files
+    print("YEEE: " + data_path)
+    shutil.rmtree(path=data_path, ignore_errors=True)
 
     print("\n>> [italic blue]New video ready![/italic blue] 🥳")
     return f"{str(BUILD_PATH)}/{subreddit}_{DATE}.mp4"

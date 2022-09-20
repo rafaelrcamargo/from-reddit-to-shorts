@@ -40,7 +40,7 @@ print(separator(21))
 def main():
     """Main loop"""
     while True:
-        if not os.path.exists(f"{str(Path(__file__).cwd())}/assets/build/{DATE}"):
+        if not os.path.exists(f"{str(Path(__file__).cwd())}/temp/build/{DATE}"):
             # Opening JSON file
             subreddits_file = open("subreddits.json", encoding="utf-8")
             subreddits = json.load(subreddits_file)
@@ -51,7 +51,7 @@ def main():
                 video_path = subreddits_list(subreddit)
 
                 if bool(video_path):
-                    youtube_upload(video_path)
+                    # youtube_upload(video_path)
                     timeout(10800, 1800, "upload")
                 else:
                     print(">> [bold red]Error, no such video![/bold red]")

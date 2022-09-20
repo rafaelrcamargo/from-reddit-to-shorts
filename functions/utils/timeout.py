@@ -2,6 +2,9 @@
 
 from time import sleep
 
+# Cool Terminal Colors
+from rich import print
+
 
 def timeout(time, steps, action):
     """Function to handle timeouts"""

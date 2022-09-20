@@ -4,11 +4,11 @@
 # Sys os
 import os
 
-# Sys Path
-from pathlib import Path
-
 # Date
 from datetime import datetime
+
+# Sys Path
+from pathlib import Path
 
 # Reddit Downloader
 from redvid import Downloader
@@ -28,7 +28,7 @@ def reddit_downloader(post):
 
     path = (
         str(Path(__file__).cwd())
-        + "/assets/videos/"
+        + "/temp/videos/"
         + post.split("/")[2]
         + "/"
         + datetime.today().strftime("%d_%m_%Y")

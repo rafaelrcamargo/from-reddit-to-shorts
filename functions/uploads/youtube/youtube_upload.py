@@ -20,7 +20,7 @@ SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
 service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
 
 build_path = (
-    str(Path(__file__).cwd()) + "/assets/build/" + datetime.today().strftime("%d_%m_%Y")
+    str(Path(__file__).cwd()) + "/temp/build/" + datetime.today().strftime("%d_%m_%Y")
 )
 
 ATTEMPTS = 10

@@ -31,13 +31,13 @@ def reddit_scrapper(response):
                 # Downloading
                 download_status = reddit_downloader(url)
 
-                if download_status == None:
+                if download_status is None:
                     print(f">> [red]Error downloading [bold]{url}[/bold]")
-                elif download_status == False:
+                elif download_status is False:
                     print(TRANSITION)
                     return (
                         str(Path(__file__).cwd())
-                        + "/assets/videos/"
+                        + "/temp/videos/"
                         + post["data"]["subreddit"]
                         + "/"
                         + datetime.today().strftime("%d_%m_%Y")

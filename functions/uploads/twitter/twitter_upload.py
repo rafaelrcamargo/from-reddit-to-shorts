@@ -9,7 +9,7 @@ import requests
 from requests_oauthlib import OAuth1
 
 build_path = (
-    str(Path(__file__).cwd()) + "/assets/build/" + datetime.today().strftime("%d_%m_%Y")
+    str(Path(__file__).cwd()) + "/temp/build/" + datetime.today().strftime("%d_%m_%Y")
 )
 
 # TWITTER KEYS
