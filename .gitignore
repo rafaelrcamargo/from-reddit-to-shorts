@@ -129,8 +129,7 @@ dmypy.json
 .pyre/
 
 # Temp Files
-assets/videos
-assets/build
+temp/
 
 # Secrets
 client_secret.json
