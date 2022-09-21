@@ -1,8 +1,6 @@
-<br />
-
 <p align="center">
   <a href="#" target="_blank" rel="noopener noreferrer">
-    <img width="160" src="./logo.png" alt="Vue logo">
+    <img width="160" src="./assets/images/logo.png" alt="Vue logo">
   </a>
 </p>
 
@@ -18,11 +16,11 @@
 
 A simple script to scrape **Reddit** content and turn it into **youtube shorts** content.
 
-### How It Works
+## How It Works
 
 - A simple script to scrape Reddit content and turn it into youtube shorts content.
 
-### Installation
+## Installation
 
 - The installation isn't too complicated, just follow the instructions below.
   We will be using [pip](https://pip.pypa.io/en/stable/) to install the dependencies.
@@ -31,7 +29,7 @@ A simple script to scrape **Reddit** content and turn it into **youtube shorts**
 > pip install -r requirements.txt
 ```
 
-### Usage
+## Usage
 
 - To start using the script, just run the following command:
 
@@ -41,14 +39,14 @@ A simple script to scrape **Reddit** content and turn it into **youtube shorts**
 
 - Then the script will ask you for the subreddit you want to scrape, with that you the script will start scrapping the content and downloading the videos.
 
-### Contributing
+## Contributing
 
 - Feel free to contribute to this project, if you have any suggestions or improvements, please open an issue or pull request.
 
-### License
+## License
 
 _This code is licensed under the [MIT]("https://github.com/RafaelRCamargo/from-reddit-to-shorts/blob/master/LICENSE") license._
 
 ---
 
-#### Thanks _:D_
+### :tada: Thanks for reading!
