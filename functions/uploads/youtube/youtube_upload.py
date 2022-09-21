@@ -7,7 +7,7 @@ from googleapiclient.http import MediaFileUpload
 # Cool Terminal Colors
 from rich import print
 
-from functions.uploads.youtube.google import Create_Service
+from functions.uploads.youtube.youtube_upload import Create_Service
 from functions.utils.separator import separator
 
 CLIENT_SECRET_FILE = (
