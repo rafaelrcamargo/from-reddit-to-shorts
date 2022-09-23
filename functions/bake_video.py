@@ -52,17 +52,8 @@ def bake_video(data_path, subreddit):
     for filename in filenames:
         clips.append(
             VideoFileClip(
-                str(Path(__file__).cwd()) + "/assets/videos/transition.mp4",
-                target_resolution=(1920, None),
-            ).set_position("center")
-        )
-        clips.append(
-            VideoFileClip(
                 str(data_path) + f"/{filename}", target_resolution=(None, 1080)
-            )
-            .set_position("center")
-            .crossfadein(0.1)
-            .crossfadeout(0.1)
+            ).set_position(("center", "center"))
         )
 
     # ? Check quantity of clips
@@ -78,19 +69,29 @@ def bake_video(data_path, subreddit):
     # * * * Build the video * * *
     print(">> [bold blue]Building the video...[/bold blue]")
     print(f">> We're about to start concatenating together {len(clips)} clips.")
+
+    # Get transition
+    transition = VideoFileClip(
+        str(Path(__file__).cwd()) + f"/assets/videos/{str(randint(1, 9))}.mp4",
+        target_resolution=(1920, 1080),
+    ).set_position(("center", "center"))
+
+    transition = transition.fx(volumex, 0.2)
+
     # Concatenate videos
-    final_clip = concatenate_videoclips(clips, method="compose")
+    final_clip = concatenate_videoclips(
+        clips, method="compose", transition=transition, bg_color=(26, 26, 26)
+    )
 
-    # Set Size
-    # final_clip = final_clip.size((1080, 1920))
+    # Set final size
+    final_clip = final_clip.size = (1920, 1080)
 
-    # Music
+    # Get music
     music_path = f"/assets/audios/{str(randint(1, 9))}.mp3"
-
     music = AudioFileClip(f"{str(Path(__file__).cwd())}{music_path}")
     music = music.fx(volumex, 0.2)
 
-    # Composite Audio Clips
+    # Set audio clips
     if final_clip.audio is not None:
         new_audioclip = CompositeAudioClip([final_clip.audio, music])
     else:

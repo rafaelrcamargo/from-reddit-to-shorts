@@ -1,7 +1,6 @@
 import os
 from datetime import datetime
 from pathlib import Path
-from time import sleep
 from googleapiclient.http import MediaFileUpload
 
 from functions.uploads.youtube.google import Create_Service
@@ -17,6 +16,8 @@ from dotenv import load_dotenv
 
 # OpenAI API
 import openai
+
+from functions.utils.timeout import timeout
 
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -81,7 +82,7 @@ def youtube_upload(filename):
             request_body = {
                 "snippet": {
                     "categoryId": 24,
-                    "title": title + " | #Shorts",
+                    "title": title + f" | {subreddit} #Shorts",
                     "description": title
                     + " | "
                     + subreddit
@@ -129,19 +130,17 @@ def youtube_upload(filename):
                 print(f"\n>> [red]Upload failed![/red] {str(e)}")
                 print(f"\n>> Trying again. ({str(ATTEMPTS)} attempts left)")
 
-                timeout = 30
-                while timeout > 0:
-                    print(f">> [italic]Trying again in[/italic] {str(timeout)}.")
-                    sleep(10)
-                    timeout -= 10
+                timeout(30, 1, "request")
+                print("\n", separator(), "\n")
+
                 ATTEMPTS -= 1
                 youtube_upload(filename)
         except Exception as e:
-            print(f"\n>> [red]Error![/red]")
             print(f"\n>> [red]Error: {str(e)}[/red]")
+            print("\n", separator(), "\n")
     else:
-        print(separator())
+        print("\n", separator(), "\n")
         print(
-            f"\n>> [red]Why [bold]TF[/bold] is this file here?[/red]\n>> [red]File[/red]:{filename}"
+            f">> [red]Why [bold]TF[/bold] is this file here?[/red]\n>> [red]File[/red]:{filename}"
         )
-        print(separator())
+        print("\n", separator(), "\n")
