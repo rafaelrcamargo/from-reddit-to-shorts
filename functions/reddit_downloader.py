@@ -39,14 +39,12 @@ def reddit_downloader(post):
     if not path_exists:
         DURATION = 0
         os.makedirs(path)
-        print("\n>> [italic blue]The new directory is created![/italic blue]")
-
-    print(separator(21), "\n")
+        print(">> [blue]The new directory was created successfully![/blue]\n")
 
     if DURATION >= 30:
         # * General Stats
-        print(">> [green]We already have enough videos![/green]")
-        print(">> [bold yellow]Let's build it?[/bold yellow]\n")
+        print(">> [bold green]We already have enough videos![/bold green]")
+        print(">> [italic yellow]Let's build it?[/italic yellow]\n")
         return False
 
     # * Basics
@@ -70,7 +68,7 @@ def reddit_downloader(post):
         reddit.check()
 
         # * Downloading
-        if reddit.duration < 18 and reddit.duration > 2:
+        if reddit.duration < 10 and reddit.duration > 1:
             DURATION += int(reddit.duration)
 
             # * Video Stats
@@ -83,7 +81,8 @@ def reddit_downloader(post):
             print(f"- Duration: [bold blue]{str(DURATION)}[/bold blue] seconds")
 
             reddit.download()
-            print("\n>> [green]Video downloaded![/green]")
+            print("\n>> [blink green]Video downloaded![/blink green]\n")
+            print(separator(), "\n")
             return True
         else:
             print("\n>> [red]Not that good for shorts! [bold]:([/bold][/red]")

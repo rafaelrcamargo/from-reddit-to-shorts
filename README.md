@@ -49,4 +49,4 @@ _This code is licensed under the [MIT]("https://github.com/RafaelRCamargo/from-r
 
 ---
 
-### :tada: Thanks for reading!
+### :tada: Thanks for reading

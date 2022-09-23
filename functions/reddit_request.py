@@ -3,18 +3,18 @@
 # Cool Terminal Colors
 from rich import print
 
-# Requests
-from functions.api_request import api_request
+# HTTP Req
+import requests
 
 
 def reddit_request(subreddit):
     """Requesting the subreddit data"""
 
     # Making a get request
-    response = api_request(subreddit)
+    response = requests.get("https://www.reddit.com/r/" + subreddit + "/hot/.json")
 
     if response.status_code == 200:
         return response
 
-    print(f"\n>> [red]Error [bold]{response.status_code}![/bold][/red]")
+    print(f">> [red]Error [bold]{response.status_code}![/bold][/red]")
     return None

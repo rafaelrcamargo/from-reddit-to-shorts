@@ -9,11 +9,6 @@ from rich import print
 # Reddit Downloader
 from functions.reddit_downloader import reddit_downloader
 
-# FRTS "Transition"
-TRANSITION = "--- [yellow]FR[/yellow][bold red]TS[/bold red] "
-TRANSITION += "--- [yellow]FR[/yellow][bold red]TS[/bold red] "
-TRANSITION += "--- [yellow]FR[/yellow][bold red]TS[/bold red] ---"
-
 
 def reddit_scrapper(response):
     """Reddit scrapping"""
@@ -32,9 +27,8 @@ def reddit_scrapper(response):
                 download_status = reddit_downloader(url)
 
                 if download_status is None:
-                    print(f">> [red]Error downloading [bold]{url}[/bold]")
+                    print(f">> [red]Error downloading [bold]{url}[/bold]\n")
                 elif download_status is False:
-                    print(TRANSITION)
                     return (
                         str(Path(__file__).cwd())
                         + "/temp/videos/"

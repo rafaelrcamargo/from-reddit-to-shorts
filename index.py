@@ -1,42 +1,69 @@
-"""FRTS - From reddit to shorts"""
+"""
+FRTS - From Reddit To Shorts
 
-# * * * Imports * * *
-# JSON files
+A fully automated project that loops over a list of the TOP video subreddits, and transforms the content into various formats, then uploads it.
+
+- - - - - - - - - - - - - - - - TODOs - - - - - - - - - - - - - - - -
+
+TODO: Think about a plataform agnostic CTA.
+TODO: Fast paced videos, think about a way to make them more dynamic.
+TODO: Create a system for longer videos, 4+ minutes. (16:9)
+
+TODO: Add a way to upload to Instagram.
+TODO: Add a way to upload to Twitter.
+TODO: Add a way to upload to TikTok.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Author: @rafaelrcamargo
+"""
+
 import json
 
-# Dates
-from datetime import datetime
-
-# Sys Paths
-from pathlib import Path
-
-# Os - For File System
+# Base
 import os
+import shutil
 
-# Cool Terminal Colors
+# Misc
+from datetime import datetime
+from pathlib import Path
+from time import sleep
+
 from rich import print
 
+# Logs
+from rich.console import Console
+
+from functions.bake_video import bake_video
+
 # Methods
-from functions.methods.subreddits_list import subreddits_list
+from functions.methods.subreddit_info import subreddit_info
+from functions.reddit_scrapper import reddit_scrapper
+
+# Plataforms
 from functions.uploads.youtube.youtube_upload import youtube_upload
 
-# Uploads
+# Utils
 from functions.utils.separator import separator
 from functions.utils.timeout import timeout
 
-# * * * Constants * * *
+# Constants
 DATE = datetime.today().strftime("%d_%m_%Y")
 
-# * * * Starting dialog * * *
-print(separator(21))
-print(
-    "\n--- [yellow]FR[/yellow][bold red]TS[/bold red] - [bold]From Reddit to Shorts[/bold] ---"
+# * Greeting dialog
+dialogs = (
+    "\n" + separator(),
+    f"\n{separator(3)} [yellow]FR[/yellow][bold red]TS[/bold red] - [bold]From Reddit to Shorts[/bold] {separator(3)}\n",
+    "A fully automated project that loops over a list of the TOP video subreddits,",
+    "and transforms the content into various formats, then uploads it. :smile:",
+    "\n" + separator() + "\n",
 )
-print("\nA simple script to scrape reddit content,")
-print("and turn it into shorts content.")
-print(separator(21))
 
-# * * * Main loop * * *
+console = Console(width=80)
+for dialog in dialogs:
+    console.print(dialog, justify="center")
+
+# * Main loop
 def main():
     """Main loop"""
     while True:
@@ -48,21 +75,60 @@ def main():
             for subreddit in subreddits["list"]:
                 # * Methods
                 # subreddit_prompt()
-                video_path = subreddits_list(subreddit)
+                info = subreddit_info(subreddit)
 
-                if bool(video_path):
-                    # youtube_upload(video_path)
-                    timeout(10800, 1800, "upload")
+                # ! Error in info scrapping
+                if info is False or info is None:
+                    continue
+
+                # * Scrapping video
+                videos = reddit_scrapper(info)
+
+                # ! Error in video scrapping
+                if videos is False or videos is None:
+                    continue
+
+                final = bake_video(videos, subreddit)
+
+                if bool(final):
+                    youtube_upload(final)
+
+                    try:
+                        shutil.rmtree(f"{str(Path(__file__).cwd())}/temp/videos")
+                    except FileNotFoundError:
+                        pass
+
+                    timeout(14400, 1800, "upload")
                 else:
                     print(">> [bold red]Error, no such video![/bold red]")
 
             # Closing file
             subreddits_file.close()
-
         else:
-            print("\n>> [bold yellow]Done for today, waiting![/bold yellow]")
+            print(">> [bold yellow]Done for today.[/bold yellow]")
             timeout(14400, 1800, "day")
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        # ? Delete temp folder
+        print("\n", separator(), "\n")
+        with console.status(
+            "[bold red]Exiting...[/bold red]\n", spinner="moon"
+        ) as status:
+            if os.path.exists(f"{str(Path(__file__).cwd())}/temp"):
+                print(">> [bold red]Deleting temp folder...[/bold red]")
+                for file in os.listdir(f"{str(Path(__file__).cwd())}/temp"):
+                    print(f">>> [bold red]Deleting {file}...[/bold red]")
+                    shutil.rmtree(f"{str(Path(__file__).cwd())}/temp/{file}")
+                    sleep(1)
+
+                os.rmdir(f"{str(Path(__file__).cwd())}/temp")
+
+        # * Exit
+        print(
+            "\n>> Exiting [bold]without [red]errors[/red], [green]temps[/green] deleted[/bold], Seya! :wave:\n"
+        )
+        pass

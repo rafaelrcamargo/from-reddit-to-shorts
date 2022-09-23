@@ -1,14 +1,25 @@
+import os
 from datetime import datetime
 from pathlib import Path
-import re
 from time import sleep
 from googleapiclient.http import MediaFileUpload
 
+from functions.uploads.youtube.google import Create_Service
+from functions.utils.separator import separator
+
 # Cool Terminal Colors
 from rich import print
+from rich.console import Console
 
-from functions.uploads.youtube.youtube_upload import Create_Service
-from functions.utils.separator import separator
+
+# .env file
+from dotenv import load_dotenv
+
+# OpenAI API
+import openai
+
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 CLIENT_SECRET_FILE = (
     str(Path(__file__).cwd()) + "/functions/uploads/youtube/client_secret.json"
@@ -18,6 +29,8 @@ API_VERSION = "v3"
 SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
 
 service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+
+console = Console()
 
 build_path = (
     str(Path(__file__).cwd()) + "/temp/build/" + datetime.today().strftime("%d_%m_%Y")
@@ -37,43 +50,56 @@ def youtube_upload(filename):
         # get last item from array
         name = filename.split("/")[-1].split(".")[0]
         subreddit = "r/" + filename.split("/")[-1].split("_")[0]
-        title = " ".join(
-            re.findall("[A-Z][^A-Z]*", filename.split("/")[-1].split("_")[0])
+
+        completion = openai.Completion.create(
+            model="text-curie-001",
+            prompt=f"Write a viral funny clickbait title for a Youtube Shorts about the trending subreddit {subreddit} memes compilation:\n",
+            temperature=0.8,
+            max_tokens=128,
+            top_p=1,
+            best_of=4,
+            frequency_penalty=0.5,
+            presence_penalty=0.25,
         )
 
-        print(f"\n>> [bold]Name[/bold]: {name}")
-        print(f">> [bold]Subreddit[/bold]: {subreddit}")
-        print(f">> [bold]Title[/bold]: {title}")
+        print(
+            f">> [yellow]Prompt[/yellow]:",
+            f"Write a viral funny clickbait title for a Youtube Shorts about the trending subreddit {subreddit} memes compilation.",
+        )
+
+        print("\n")
+        console.print_json(str(completion))
+
+        title = completion.choices[0].text
+        title = title.replace("\n", " ").replace("\r", " ").replace("\t", " ").strip()
+
+        print(f"\n>> [yellow]Name[/yellow]: {name}")
+        print(f">> [yellow]Subreddit[/yellow]: {subreddit}")
+        print(f">> [yellow]Title[/yellow]: {title}")
 
         try:
             request_body = {
                 "snippet": {
                     "categoryId": 24,
-                    "title": title
-                    + " ("
-                    + subreddit
-                    + ") - trending goes brrr #Shorts",
+                    "title": title + " | #Shorts",
                     "description": title
-                    + " ("
+                    + " | "
                     + subreddit
-                    + ") - trending goes brrr #Shorts\n\n\n#Entertainment, #fun, #funny, #comedy, #meme, #trending, #memes, #nonsense, #reddit, #viral, #reel.",
+                    + " 🤣 | #Shorts\n\n"
+                    + "Subscribe for a cookie 🍪"
+                    + "\n\n#fun, #funny, #comedy, #meme, #trending, #memes, #nonsense, #reddit, #viral",
                     "tags": [
                         "fun",
                         "funny",
                         "comedy",
-                        "meme",
                         "trending",
+                        "meme",
                         "memes",
-                        "Entertainment",
                         "nonsense",
                         "reddit",
                         "youtube",
-                        "subscribe",
                         "viral",
-                        "reel",
-                        "reels",
                         "Shorts",
-                        "Youtubeshorts",
                     ],
                 },
                 "status": {
@@ -82,7 +108,9 @@ def youtube_upload(filename):
                 },
                 "notifySubscribers": True,
             }
+
             mediaFile = MediaFileUpload(build_path + "/" + name + ".mp4")
+
             try:
                 response_upload = (
                     service.videos()
@@ -91,7 +119,8 @@ def youtube_upload(filename):
                     )
                     .execute()
                 )
-                print("\n>> ", response_upload)
+                print("\n")
+                console.print_json(str(response_upload))
                 print("\n>> [blue]Uploaded![/blue]")
             except Exception as e:
                 if ATTEMPTS <= 0:
@@ -111,8 +140,8 @@ def youtube_upload(filename):
             print(f"\n>> [red]Error![/red]")
             print(f"\n>> [red]Error: {str(e)}[/red]")
     else:
-        print(separator(21))
+        print(separator())
         print(
             f"\n>> [red]Why [bold]TF[/bold] is this file here?[/red]\n>> [red]File[/red]:{filename}"
         )
-        print(separator(21))
+        print(separator())

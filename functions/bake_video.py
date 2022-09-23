@@ -32,7 +32,7 @@ from PIL import Image
 from rich import print
 
 # Moviepy VFX
-
+from moviepy.audio.fx.volumex import volumex
 
 # * Consts
 DATE = datetime.today().strftime("%d_%m_%Y")
@@ -86,8 +86,9 @@ def bake_video(data_path, subreddit):
 
     # Music
     music_path = f"/assets/audios/{str(randint(1, 9))}.mp3"
+
     music = AudioFileClip(f"{str(Path(__file__).cwd())}{music_path}")
-    music = music.max_volume(0.5)
+    music = music.fx(volumex, 0.2)
 
     # Composite Audio Clips
     if final_clip.audio is not None:
@@ -104,8 +105,11 @@ def bake_video(data_path, subreddit):
 
     clips[1].save_frame(str(BUILD_PATH) + "/frame.png", t=2)
 
-    img = Image.open(str(Path(__file__).cwd()) + "/assets/images/thumb_frame.png")
-    background = Image.open(str(BUILD_PATH) + "/frame.png")
+    img = Image.open(
+        str(Path(__file__).cwd()) + "/assets/images/thumb_frame.png"
+    ).convert("RGBA")
+
+    background = Image.open(str(BUILD_PATH) + "/frame.png").convert("RGBA")
 
     # Resize the image
     size = (1080, 1920)
@@ -113,6 +117,8 @@ def bake_video(data_path, subreddit):
     background = background.resize(size, Image.ANTIALIAS)
 
     background.paste(img, (0, 0), img)
+
+    img.close()
 
     background = background.convert("RGB")
     background.save(
@@ -126,15 +132,14 @@ def bake_video(data_path, subreddit):
     final_clip.write_videofile(
         filename=f"{str(BUILD_PATH)}/{subreddit}_{DATE}.mp4",
         fps=30,
-        codec="mpeg4",
+        codec="libx264",
         preset="fast",
+        threads=4,
     )
 
     final_clip.close()
 
-    # delete the temp files
-    print("YEEE: " + data_path)
     shutil.rmtree(path=data_path, ignore_errors=True)
 
-    print("\n>> [italic blue]New video ready![/italic blue] 🥳")
+    print("\n>> [blink blue]New video ready![/blink blue] 🥳")
     return f"{str(BUILD_PATH)}/{subreddit}_{DATE}.mp4"

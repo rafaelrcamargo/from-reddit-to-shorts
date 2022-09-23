@@ -1,16 +1,26 @@
 """Timeout handler"""
 
+import math
 from time import sleep
 
 # Cool Terminal Colors
 from rich import print
+from rich.progress import track
 
 
-def timeout(time, steps, action):
+def timeout(time, step, action):
     """Function to handle timeouts"""
-    total = time
-    while total > 0:
-        print(f"\n>> [red]Waiting for the next [bold]{action}[/bold]![/red]")
-        print(f">> [red]Time left: {str(total)} seconds[/red]")
-        sleep(steps)
-        total -= steps
+
+    step = math.ceil(step * 0.1)
+
+    print(f">> [dim]Waiting for the next [bold]{action}[/bold]![/dim]\n")
+
+    for _ in track(
+        range(0, time, step),
+        description="Waiting...",
+        get_time=False,
+        style="red",
+        complete_style="green",
+        finished_style="green",
+    ):
+        sleep(step)
