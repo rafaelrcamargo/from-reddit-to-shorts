@@ -84,7 +84,7 @@ def bake_video(data_path, subreddit):
     )
 
     # Set final size
-    final_clip = final_clip.size = (1920, 1080)
+    final_clip.size = (1920, 1080)
 
     # Get music
     music_path = f"/assets/audios/{str(randint(1, 9))}.mp3"
