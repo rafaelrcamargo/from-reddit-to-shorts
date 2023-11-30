@@ -12,13 +12,16 @@
 
 <br />
 
-# **_FRTS_** - From Reddit to Shorts
+# FRTS - From Reddit to Shorts
 
-A simple script to scrape **Reddit** content and turn it into **youtube shorts** content.
+A simple script to scrape **Reddit** content and turn it into **shorts** content.
+
+> [!important]
+> This is a old experiment, a WIP that never really got to 100%. Proceed with caution! 
 
 ## How It Works
 
-- A simple script to scrape Reddit content and turn it into youtube shorts content.
+- A script that scrapes Reddit content and bakes a short video.
 
 ## Installation
 
@@ -39,6 +42,9 @@ A simple script to scrape **Reddit** content and turn it into **youtube shorts**
 
 - Then the script will ask you for the subreddit you want to scrape, with that you the script will start scrapping the content and downloading the videos.
 
+> [!tip]
+> It works, may not be the most reliable thing in the world. But I think it can be of great value for folks looking to do something simmilar.
+
 ## Contributing
 
 - Feel free to contribute to this project, if you have any suggestions or improvements, please open an issue or pull request.
@@ -46,7 +52,3 @@ A simple script to scrape **Reddit** content and turn it into **youtube shorts**
 ## License
 
 _This code is licensed under the [MIT]("https://github.com/RafaelRCamargo/from-reddit-to-shorts/blob/master/LICENSE") license._
-
----
-
-### :tada: Thanks for reading
