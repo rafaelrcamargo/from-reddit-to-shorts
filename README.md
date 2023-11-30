@@ -17,7 +17,7 @@
 A simple script to scrape **Reddit** content and turn it into **shorts** content.
 
 > [!important]
-> This is a old experiment, a WIP that never really got to 100%. Proceed with caution! 
+> This is a old experiment, a WIP that never really got to 100%. Proceed with caution!
 
 ## How It Works
 
